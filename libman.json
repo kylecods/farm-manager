@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "wwwroot/lib/ui-kit/",
+      "destination": "wwwroot/lib/ui-kit/",
+      "files": []
+    }
+  ]
+}
