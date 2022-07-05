@@ -1,0 +1,12 @@
+C:\Users\Admin\Desktop\PERSONAL\FarmData\bin\Debug\net6.0\DomainLayer.deps.json
+C:\Users\Admin\Desktop\PERSONAL\FarmData\bin\Debug\net6.0\DomainLayer.dll
+C:\Users\Admin\Desktop\PERSONAL\FarmData\bin\Debug\net6.0\DomainLayer.pdb
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.AssemblyInfo.cs
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.dll
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\refint\DomainLayer.dll
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\DomainLayer.pdb
+C:\Users\Admin\Desktop\PERSONAL\FarmData\obj\Debug\net6.0\ref\DomainLayer.dll
