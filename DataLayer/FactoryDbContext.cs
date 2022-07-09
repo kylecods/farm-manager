@@ -14,54 +14,52 @@ namespace DataLayer
         {
         }
 
-        public DbSet<Factory> Factories { get; set; }
+        public DbSet<FactoryModel> Factories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Factory>()
+            modelBuilder.Entity<FactoryModel>()
                 .Property(e => e.Weight)
                 .HasPrecision(38,10);
 
-            modelBuilder.Entity<Factory>()
+            modelBuilder.Entity<FactoryModel>()
                 .Property(e => e.AmountPaid)
                 .HasPrecision(38, 10);
 
 
-            modelBuilder.Entity<Factory>().ToTable(nameof(Factory));
+            modelBuilder.Entity<FactoryModel>().ToTable("Factory");
         }
     }
 
-    public class Factory : FactoryModel
+    public class FactoryHelper
     {
-        public Factory() { }
-
-        public Factory(FactoryModel model)
+        public static FactoryModel GenerateNewFactoryModel(FactoryModel item)
         {
-            Load(model);
+            var factory = new FactoryModel();
+
+            factory.Id = Guid.NewGuid();
+            factory.Weight = item.Weight;
+            factory.FactoryName = item.FactoryName;
+            factory.PaidDate = item.PaidDate;
+            factory.AmountPaid = item.AmountPaid;
+            factory.CreatedDate = DateTime.Now;
+
+            return factory;
         }
 
-        public void Load(FactoryModel model)
+        public static FactoryModel CopyFactoryModel(FactoryModel item)
         {
-            Id = model.Id;
-            FactoryName = model.FactoryName;
-            AmountPaid = model.AmountPaid;
-            Weight = model.Weight;
-            PaidDate = model.PaidDate;
-            CreatedDate = model.CreatedDate;
-        }
-
-        public Factory ToFactory()
-        {
-            return new Factory
+            return new FactoryModel()
             {
-                Id = Id,
-                FactoryName = FactoryName,
-                AmountPaid = AmountPaid,
-                Weight = Weight,
-                PaidDate = PaidDate,
-                CreatedDate = CreatedDate
+                Id = item.Id,
+                Weight = item.Weight,
+                FactoryName = item.FactoryName,
+                PaidDate = item.PaidDate,
+                AmountPaid = item.AmountPaid,
+                CreatedDate = item.CreatedDate
             };
         }
     }
+
 }

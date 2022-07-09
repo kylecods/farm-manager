@@ -1,15 +1,59 @@
-﻿@{
+﻿@using DomainLayer
+@model FactoryModel
+@{
     ViewData["Title"] = "Index";
 }
 <div class="row justify-content-center">
-   <div class="col col-lg-12 col-md-12">
-      <p>WELCOME!!</p>
       <div id="showAlert"></div>
-      <table class="table"></table>
+
+   <div class="col col-lg-12 col-md-12">
+      <button type="button" class="btn btn-primary mb-3 offset-md-10" data-bs-toggle="modal" data-bs-target="#postFactoryModal">Insert Data</button>
+      <table class="table table-striped" id="factoryDatatable">
+          <tbody>
+                <tr>
+                    <td colspan="100%" class="dataTables_empty">
+                        Loading data from server
+                    </td>
+                </tr>
+            </tbody>
+      </table>
    </div>
 
+   
+
+<div class="modal fade" id="postFactoryModal" tabindex="-1" aria-labelledby="postFactoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Factory</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="postFactory">
+          <div class="mb-3">
+            <label asp-for="FactoryName" class="col-form-label"></label>
+            <input type="text" class="form-control" asp-for="FactoryName">
+          </div>
+          <div class="mb-3">
+            <label asp-for="Weight" class="col-form-label"></label>
+            <input class="form-control" asp-for="Weight"/>
+          </div>
+          <div class="mb-3">
+            <label asp-for="AmountPaid" class="col-form-label"></label>
+            <input class="form-control" id="amount" asp-for="AmountPaid"/>
+          </div>
+           <div class="mb-3">
+            <label asp-for="PaidDate" class="col-form-label"></label>
+            <input class="form-control" asp-for="PaidDate" type="date" asp-format="{0:yyyy-MM-dd}"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modal-close">Close</button>
+        <button type="button" class="btn btn-primary" form="postFactory" id="addFactory">Add Factory</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-@section scripts{
-    <script type="text/javascript" src="~/js/table.js"></script>
-}
+</div>

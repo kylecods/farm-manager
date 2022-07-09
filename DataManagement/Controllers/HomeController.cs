@@ -1,30 +1,50 @@
-﻿using DataLayer;
-using DataManagement.Models;
+﻿using DataManagement.Models;
+using DomainLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+using Services;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataManagement.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IFactoryRepository _factoryRepository;
+        private readonly IFactoryService _factoryService;
 
-        public HomeController(ILogger<HomeController> logger, IFactoryRepository factoryRepository)
+        public HomeController(ILogger<HomeController> logger, IFactoryService factoryService)
         {
             _logger = logger;
-            _factoryRepository = factoryRepository;
+            _factoryService = factoryService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateFactory([FromForm]FactoryModel model)
+        {
+            try
+            {
+                await _factoryService.AddFactoryAsync(model);
+
+                return Json("Success adding data!");
+
+            }catch(Exception e)
+            {
+                return Json(e.Message);
+            }
+
+        }
+
 
         public IActionResult Privacy()
         {
@@ -33,7 +53,7 @@ namespace DataManagement.Controllers
 
         public async Task<JsonResult> GetAllData()
         {
-            var data = await _factoryRepository.GetAllAsync();
+            var data = await _factoryService.GetAllFactoriesAsync();
  
             return Json(data.ToList());
         }

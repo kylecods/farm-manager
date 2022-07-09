@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services;
 
 namespace DataManagement
 {
@@ -30,6 +31,8 @@ namespace DataManagement
             });
 
             services.AddHostedService<HostedServices.DatabaseHostedService>();
+
+            
 
             services.AddDbContext<DataManagementContext>(options =>
                     options.UseSqlServer(connectionString)
@@ -61,6 +64,7 @@ namespace DataManagement
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(5);
 
                 options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/";
                 options.SlidingExpiration = true;
 
             });
@@ -68,6 +72,7 @@ namespace DataManagement
 
             //Dependency
             services.AddScoped<IFactoryRepository, FactoryRepository>();
+            services.AddScoped<IFactoryService, FactoryService>();
 
         }
 

@@ -13,7 +13,9 @@ namespace DataLayer
 
         public virtual async Task AddAsync(FactoryModel item)
         {
-            await _dbContext.AddAsync(item);
+            var factory = FactoryHelper.GenerateNewFactoryModel(item);
+
+            await _dbContext.AddAsync(factory);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -36,7 +38,7 @@ namespace DataLayer
         {
             var entity = await _dbContext.Factories.FindAsync(id);
 
-            return  entity?.ToFactory();
+            return entity ?? new FactoryModel();
         }
 
         public async Task UpdateAsync(FactoryModel item)
@@ -45,9 +47,12 @@ namespace DataLayer
 
             if(entity != null)
             {
-                entity.Load(item);
+                entity.Weight = item.Weight;
+                entity.FactoryName = item.FactoryName;
+                entity.AmountPaid = item.AmountPaid;
+                entity.PaidDate = item.PaidDate;
 
-                await _dbContext.SaveChangesAsync();
+               await _dbContext.SaveChangesAsync();
             }
         }
     }
