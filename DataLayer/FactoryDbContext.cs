@@ -10,12 +10,26 @@ namespace DataLayer
 {
     public class FactoryDbContext :DbContext
     {
-        public FactoryDbContext(DbContextOptions options) :base(options)
+        public FactoryDbContext(DbContextOptions<FactoryDbContext> options) :base(options)
         {
         }
 
         public DbSet<Factory> Factories { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Factory>()
+                .Property(e => e.Weight)
+                .HasPrecision(38,10);
+
+            modelBuilder.Entity<Factory>()
+                .Property(e => e.AmountPaid)
+                .HasPrecision(38, 10);
+
+
+            modelBuilder.Entity<Factory>().ToTable(nameof(Factory));
+        }
     }
 
     public class Factory : FactoryModel

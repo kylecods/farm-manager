@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
-
 namespace DataManagement
 {
     class Program

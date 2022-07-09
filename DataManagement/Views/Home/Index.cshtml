@@ -1,8 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
+<div class="row justify-content-center">
+   <div class="col col-lg-12 col-md-12">
+      <p>WELCOME!!</p>
+      <div id="showAlert"></div>
+      <table class="table"></table>
+   </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a class="uk-button uk-button-default" href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@section scripts{
+    <script type="text/javascript" src="~/js/table.js"></script>
+}

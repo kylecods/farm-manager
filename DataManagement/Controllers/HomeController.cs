@@ -1,7 +1,11 @@
-﻿using DataManagement.Models;
+﻿using DataLayer;
+using DataManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataManagement.Controllers
 {
@@ -9,9 +13,12 @@ namespace DataManagement.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IFactoryRepository _factoryRepository;
+
+        public HomeController(ILogger<HomeController> logger, IFactoryRepository factoryRepository)
         {
             _logger = logger;
+            _factoryRepository = factoryRepository;
         }
 
         public IActionResult Index()
@@ -22,6 +29,13 @@ namespace DataManagement.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public async Task<JsonResult> GetAllData()
+        {
+            var data = await _factoryRepository.GetAllAsync();
+ 
+            return Json(data.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
