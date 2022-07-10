@@ -1,4 +1,4 @@
-﻿namespace DataLayer
+﻿namespace Repositories
 {
     public interface IRepository<TItem, TId>
     {

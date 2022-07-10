@@ -1,11 +1,11 @@
-﻿using DataLayer;
-using DataManagement.Data;
+﻿using DataManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Repositories;
 
 namespace DataManagement.HostedServices
 {
@@ -21,7 +21,7 @@ namespace DataManagement.HostedServices
         {
             using var scope = _serviceScopeFactory.CreateScope();
 
-            var databaseContext = scope.ServiceProvider.GetRequiredService<FactoryDbContext>();
+            var databaseContext = scope.ServiceProvider.GetRequiredService<FarmDbContext>();
             var identityDbContext = scope.ServiceProvider.GetRequiredService<DataManagementContext>();
 
             await Task.Delay(1000, cancellationToken);

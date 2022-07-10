@@ -1,5 +1,4 @@
-﻿using DataLayer;
-using DataManagement.Data;
+﻿using DataManagement.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services;
+using Repositories;
 
 namespace DataManagement
 {
@@ -23,16 +23,15 @@ namespace DataManagement
         {
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<FactoryDbContext>(options => {
+            services.AddDbContext<FarmDbContext>(options => {
                 options.UseSqlServer(connectionString);
             });
 
             services.AddHostedService<HostedServices.DatabaseHostedService>();
-
-            
 
             services.AddDbContext<DataManagementContext>(options =>
                     options.UseSqlServer(connectionString)

@@ -1,5 +1,4 @@
-﻿using DataLayer;
-using DomainLayer;
+﻿using Entities.Models;
 
 namespace Services
 {

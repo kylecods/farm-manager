@@ -1,6 +1,6 @@
-﻿using DomainLayer;
+﻿using Entities.Models;
 
-namespace DataLayer
+namespace Repositories
 {
     public interface IFactoryRepository : IRepository<FactoryModel, Guid>
     {

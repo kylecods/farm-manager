@@ -1,5 +1,5 @@
-﻿using DataLayer;
-using DomainLayer;
+﻿using Entities.Models;
+using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
