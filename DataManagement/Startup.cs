@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services;
 using Repositories;
+using Repositories.Mappers;
 
 namespace DataManagement
 {
@@ -23,7 +24,7 @@ namespace DataManagement
         {
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(config => config.AddProfile<FactoryMapper>());
             services.AddControllersWithViews();
             services.AddRazorPages();
 

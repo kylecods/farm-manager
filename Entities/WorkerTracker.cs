@@ -10,7 +10,7 @@ namespace Entities
     {
         public Guid WorkerId { get; set; }
 
-        public Worker Worker { get; set; }
+        public Worker? Worker { get; set; }
 
         public decimal KiloGramsPicked { get; set; }
     }

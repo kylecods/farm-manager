@@ -8,9 +8,9 @@ namespace Entities
 {
     public class FactoryCollection : Entity
     {
-        public Guid FactoryId { get; set; }
+        public Guid? FactoryId { get; set; }
 
-        public virtual Factory Factory { get; set; }
+        public virtual Factory? Factory { get; set; }
 
         public decimal Weight { get; set; }
 

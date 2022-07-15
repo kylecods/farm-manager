@@ -17,14 +17,14 @@ namespace Services
             _factoryRepository = factoryRepository;
         }
 
-        public async Task AddFactoryAsync(FactoryModel item)
+        public Task AddFactoryAsync(FactoryModel item)
         {  
-            await _factoryRepository.AddAsync(item);
+             return _factoryRepository.AddAsync(item);
         }
 
-        public async Task DeleteFactoryAsync(Guid id)
+        public Task DeleteFactoryAsync(Guid id)
         {
-            await _factoryRepository.DeleteAsync(id);
+            return _factoryRepository.DeleteAsync(id);
         }
 
         public async Task<List<FactoryModel>> GetAllFactoriesAsync()
@@ -34,14 +34,14 @@ namespace Services
             return factories.ToList();
         }
 
-        public async Task<FactoryModel> GetFactoryByIdAsync(Guid id)
+        public Task<FactoryModel> GetFactoryByIdAsync(Guid id)
         {
-            return await _factoryRepository.GetByIdAsync(id);
+            return _factoryRepository.GetByIdAsync(id);
         }
 
-        public async Task UpdateFactoryAsync(FactoryModel item)
+        public Task UpdateFactoryAsync(FactoryModel item)
         {
-            await _factoryRepository.UpdateAsync(item); 
+            return _factoryRepository.UpdateAsync(item); 
         }
     }
 }

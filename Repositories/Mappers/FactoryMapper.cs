@@ -32,5 +32,18 @@ namespace Repositories.Mappers
 
             return factory;
         }
+
+        public static Factory CopyFactory(Factory copy)
+        {
+            return new Factory()
+            {
+                Id = copy.Id,
+                FactoryName = copy.FactoryName,
+                PhoneNumber = copy.PhoneNumber,
+                Location = copy.Location,
+                CreatedDate = copy.CreatedDate,
+
+            };
+        }
     }
 }

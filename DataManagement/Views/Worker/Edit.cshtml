@@ -1,0 +1,41 @@
+﻿@using Entities.Models;
+@model WorkerModel
+
+@{
+    ViewData["Title"] = "Edit Worker";
+}
+
+<h2 class="text-center pt-3">Edit Worker</h2>
+
+<div class="row justify-content-center pt-5">
+   <div class="col col-lg-6 col-sm-12 align-items-between">
+     
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(x=>x.Id);
+            <label asp-for="WorkerName" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <input asp-for="WorkerName" class="form-control py-0" aria-required="true" />
+                <span asp-validation-for="WorkerName" class="text-danger"></span>
+            </div>
+            <label asp-for="PhoneNumber" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <input asp-for="PhoneNumber" class="form-control py-0" aria-required="true" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+            </div>
+        </form>
+          
+      
+   </div>
+
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -21,7 +21,7 @@ namespace Repositories
         {
             var factory = FactoryMapper.CreateFactory(item);
 
-            await _dbContext.AddAsync(factory);
+            await _dbContext.AddAsync(factory!);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -39,7 +39,7 @@ namespace Repositories
         {
             var result = _dbContext.Factories;
 
-            var mappedResult = _mapper.Map<IEnumerable<Factory>, IEnumerable<FactoryModel>>(result);
+            var mappedResult = _mapper.Map<IEnumerable<Factory>, IEnumerable<FactoryModel>>(result!);
 
             return await Task.FromResult(mappedResult); 
         }
@@ -59,8 +59,9 @@ namespace Repositories
 
             if(entity != null)
             {
-            
-               await _dbContext.SaveChangesAsync();
+                FactoryMapper.CopyFactory(entity);
+
+                await _dbContext.SaveChangesAsync();
             }
         }
     }
