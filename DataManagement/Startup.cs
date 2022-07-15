@@ -69,8 +69,13 @@ namespace DataManagement
             });
 
 
-            //Dependency
+            //Repositories
             services.AddScoped<IFactoryRepository, FactoryRepository>();
+            services.AddScoped<IFactoryCollectionsRepository, FactoryCollectionRepository>();
+            services.AddScoped<IWorkerRepository, WorkerRepository>();
+            services.AddScoped<IWorkerTrackerRepository, WorkerTrackerRepository>();
+
+            //services
             services.AddScoped<IFactoryService, FactoryService>();
 
         }

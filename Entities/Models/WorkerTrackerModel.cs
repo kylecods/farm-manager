@@ -5,6 +5,7 @@ namespace Entities.Models
 {
     public class WorkerTrackerModel
     {
+        public Guid Id { get; set; }
         public Guid WorkerId { get; set; }
 
         [Required]

@@ -5,6 +5,7 @@ namespace Entities.Models
 {
     public class FactoryCollectionModel
     {
+        public Guid Id { get; set; }
         public Guid FactoryId { get; set; }
 
         [Display(Name = "Amount Paid")]
@@ -12,6 +13,7 @@ namespace Entities.Models
 
 
         [Display(Name = "Weight")]
+        [Required]
         public decimal Weight { get; set; }
 
 

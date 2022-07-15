@@ -9,13 +9,7 @@
    <div class="col col-lg-12 col-md-12">
       <button type="button" class="btn btn-primary mb-3 offset-md-10" data-bs-toggle="modal" data-bs-target="#postFactoryModal">Insert Data</button>
       <table class="table table-striped" id="factoryDatatable">
-          <tbody>
-                <tr>
-                    <td colspan="100%" class="dataTables_empty">
-                        Loading data from server
-                    </td>
-                </tr>
-            </tbody>
+
       </table>
    </div>
 
@@ -33,10 +27,12 @@
           <div class="mb-3">
             <label asp-for="FactoryName" class="col-form-label"></label>
             <input type="text" class="form-control" asp-for="FactoryName">
+            <span asp-validation-for="FactoryName" class="text-danger"></span>
           </div>
           <div class="mb-3">
             <label asp-for="Weight" class="col-form-label"></label>
             <input class="form-control" asp-for="Weight"/>
+            <span asp-validation-for="Weight" class="text-danger"></span>
           </div>
           <div class="mb-3">
             <label asp-for="AmountPaid" class="col-form-label"></label>
