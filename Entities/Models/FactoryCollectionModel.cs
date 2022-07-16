@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models
 {
@@ -8,7 +7,7 @@ namespace Entities.Models
         public Guid Id { get; set; }
         public Guid FactoryId { get; set; }
 
-        [Display(Name = "Amount Paid")]
+        [Display(Name = "Factory Name")]
         public string FactoryName { get; set; }
 
 

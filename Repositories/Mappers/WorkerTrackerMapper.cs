@@ -1,15 +1,16 @@
 ﻿using Entities;
 using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Repositories.Mappers
 {
-    public class WorkerTrackerMapper
+    public class WorkerTrackerMapper: Profile
     {
+        public WorkerTrackerMapper()
+        {
+            CreateMap<WorkerTrackerMapper, WorkerTrackerModel>();
+        }
+
         public static WorkerTracker CreateWorkerTracker(WorkerTrackerModel model)
         {
             var workerTracker = new WorkerTracker();
@@ -22,5 +23,6 @@ namespace Repositories.Mappers
 
             return workerTracker;
         }
+
     }
 }

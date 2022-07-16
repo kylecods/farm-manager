@@ -1,22 +1,29 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Models;
+using Entities.Extensions;
+using Repositories.Mappers;
+using AutoMapper;
 
 namespace Repositories
 {
     public class FactoryCollectionRepository : IFactoryCollectionsRepository
     {
         private readonly FarmDbContext _dbContext;
-        public FactoryCollectionRepository(FarmDbContext dbContext)
+
+        private readonly IMapper _mapper;
+        public FactoryCollectionRepository(FarmDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext ?? throw new ArgumentException();
+
+            _mapper = mapper ?? throw new ArgumentException();
         }
-        public Task AddAsync(FactoryCollection item)
+        public async Task AddAsync(FactoryCollectionModel item)
         {
-            throw new NotImplementedException();
+            var factoryCollection = FactoryCollectionMapper.CreateFactoryCollection(item);
+
+            await _dbContext.AddAsync(factoryCollection!);
+
+            await _dbContext.SaveChangesAsync();
         }
 
         public virtual async Task DeleteAsync(Guid id)
@@ -28,19 +35,34 @@ namespace Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<FactoryCollection>> GetAllAsync()
+        public virtual async Task<IEnumerable<FactoryCollectionModel>> GetAllAsync()
         {
-            return await Task.FromResult(_dbContext.FactoryCollections);
+            var result = _dbContext.FactoryCollections;
+
+            var mappedResult = _mapper.Map<IEnumerable<FactoryCollection>, IEnumerable<FactoryCollectionModel>>(result!);
+
+            return await Task.FromResult(mappedResult);
         }
 
-        public Task<FactoryCollection> GetByIdAsync(Guid id)
+        public async Task<FactoryCollectionModel> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.FactoryCollections.FindAsync(id);
+
+            var mappedEntity = _mapper.Map<FactoryCollectionModel>(entity);
+
+            return mappedEntity;
         }
 
-        public Task UpdateAsync(FactoryCollection item)
+        public async Task UpdateAsync(FactoryCollectionModel item)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.FactoryCollections.FindAsync(item.Id);
+
+            if (entity != null)
+            {
+                entity.UpdateFactoryCollection(item);
+
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

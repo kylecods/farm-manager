@@ -1,13 +1,14 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Entities.Models;
 using System.Threading.Tasks;
-using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataManagement.Controllers
 {
+    [Authorize]
     public class FactoryController : Controller
     {
         private readonly IFactoryService _factoryService;
@@ -26,14 +27,9 @@ namespace DataManagement.Controllers
         {
             var data = await _factoryService.GetAllFactoriesAsync();
 
-            return Json(data.ToList());
+            return Json(data ?? new List<FactoryModel>());
         }
 
-        // GET: FactoryController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: FactoryController/Create
         public ActionResult Create()
@@ -69,7 +65,7 @@ namespace DataManagement.Controllers
         {
             var factory = await _factoryService.GetFactoryByIdAsync(id);
 
-            return View(factory);
+            return View(factory!);
         }
 
         // POST: FactoryController/Edit/5
@@ -89,24 +85,19 @@ namespace DataManagement.Controllers
             }
         }
 
-        // GET: FactoryController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: FactoryController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async ValueTask<ActionResult>Delete(string id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _factoryService.DeleteFactoryAsync(Guid.Parse(id));
+
+                return Json(new { message = "Success" });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return Json(new { message = $"Failed. {ex.Message}" });
             }
         }
     }

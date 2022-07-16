@@ -1,8 +1,8 @@
-﻿using Entities;
+﻿using Entities.Models;
 
 namespace Repositories
 {
-    public interface IWorkerTrackerRepository : IRepository<WorkerTracker,Guid>
+    public interface IWorkerTrackerRepository : IRepository<WorkerTrackerModel,Guid>
     {
     }
 }

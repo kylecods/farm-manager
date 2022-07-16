@@ -13,5 +13,17 @@ namespace Services
         Task<List<FactoryModel>> GetAllFactoriesAsync();
 
         Task<FactoryModel> GetFactoryByIdAsync(Guid id);
+
+
+
+        Task AddFactoryCollectionAsync(FactoryCollectionModel item);
+
+        Task UpdateFactoryCollectionAsync(FactoryCollectionModel item);
+
+        Task DeleteFactoryCollectionAsync(Guid id);
+
+        Task<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync();
+
+        Task<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id);
     }
 }

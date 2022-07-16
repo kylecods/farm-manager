@@ -1,15 +1,15 @@
 ﻿using Entities;
 using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Repositories.Mappers
 {
-    public class WorkerMapper
+    public class WorkerMapper:Profile
     {
+        public WorkerMapper()
+        {
+            CreateMap<Worker, WorkerModel>();
+        }
 
         public static Worker CreateWorker(WorkerModel model)
         {
@@ -24,6 +24,15 @@ namespace Repositories.Mappers
             worker.CreatedDate = DateTime.Now;
 
             return worker;
+        }
+
+        public static Worker ToWorker(WorkerModel copy)
+        {
+            return new Worker()
+            {
+                WorkerName = copy.WorkerName,
+                PhoneNumber = copy.PhoneNumber,
+            };
         }
     }
 }

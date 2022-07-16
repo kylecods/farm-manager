@@ -2,6 +2,7 @@
 using AutoMapper;
 using Entities.Models;
 using Entities;
+using Entities.Extensions;
 
 namespace Repositories
 {
@@ -59,7 +60,7 @@ namespace Repositories
 
             if(entity != null)
             {
-                FactoryMapper.CopyFactory(entity);
+                entity.UpdateFactory(item);
 
                 await _dbContext.SaveChangesAsync();
             }

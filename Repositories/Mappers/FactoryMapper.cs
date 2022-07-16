@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities;
+﻿using Entities;
 using Entities.Models;
 using AutoMapper;
 
@@ -33,17 +28,6 @@ namespace Repositories.Mappers
             return factory;
         }
 
-        public static Factory CopyFactory(Factory copy)
-        {
-            return new Factory()
-            {
-                Id = copy.Id,
-                FactoryName = copy.FactoryName,
-                PhoneNumber = copy.PhoneNumber,
-                Location = copy.Location,
-                CreatedDate = copy.CreatedDate,
 
-            };
-        }
     }
 }

@@ -24,8 +24,16 @@ namespace DataManagement
         {
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddAutoMapper(config => config.AddProfile<FactoryMapper>());
+
+            services.AddAutoMapper(config => {
+                config.AddProfile<FactoryMapper>();
+                config.AddProfile<WorkerMapper>();
+                config.AddProfile<FactoryCollectionMapper>();
+                config.AddProfile<WorkerTrackerMapper>();
+            });
+
             services.AddControllersWithViews();
+
             services.AddRazorPages();
 
             services.AddDbContext<FarmDbContext>(options => {
@@ -78,6 +86,7 @@ namespace DataManagement
 
             //services
             services.AddScoped<IFactoryService, FactoryService>();
+            services.AddScoped<IWorkerService, WorkerService>();
 
         }
 

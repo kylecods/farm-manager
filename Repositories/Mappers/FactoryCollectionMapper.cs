@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Entities;
 using Entities.Models;
 
@@ -16,7 +11,7 @@ namespace Repositories.Mappers
             CreateMap<FactoryCollection, FactoryCollectionModel>();
         }
 
-        public static FactoryCollection CreateFactory(FactoryCollectionModel model)
+        public static FactoryCollection CreateFactoryCollection(FactoryCollectionModel model)
         {
             var factoryCollection = new FactoryCollection();
 

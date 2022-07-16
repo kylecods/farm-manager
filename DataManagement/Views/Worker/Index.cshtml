@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<h4 class="mt-5">Workers</h4>
+<div id="showAlert"></div>
+
+<div class="row justify-content-center">
+      
+
+   <div class="col col-lg-12 col-md-12">
+      
+        <table class="table table-striped" id="workerDatatable">
+
+        </table>
+
+   </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/worker.js" asp-append-version="true"></script>
 }

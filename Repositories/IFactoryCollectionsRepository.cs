@@ -1,8 +1,8 @@
-﻿using Entities;
+﻿using Entities.Models;
 
 namespace Repositories
 {
-    public interface IFactoryCollectionsRepository : IRepository<FactoryCollection,Guid>
+    public interface IFactoryCollectionsRepository : IRepository<FactoryCollectionModel,Guid>
     {
     }
 }

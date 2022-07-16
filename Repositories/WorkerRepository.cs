@@ -1,37 +1,71 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Models;
+using Entities.Extensions;
+using AutoMapper;
+using Repositories.Mappers;
 
 namespace Repositories
 {
     public class WorkerRepository : IWorkerRepository
     {
-        public Task AddAsync(Worker item)
+        private readonly FarmDbContext _farmDbContext;
+
+        private readonly IMapper _mapper;
+
+        public WorkerRepository(FarmDbContext farmDbContext, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _farmDbContext = farmDbContext ?? throw new ArgumentNullException();
+
+            _mapper = mapper ?? throw new ArgumentNullException();
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task AddAsync(WorkerModel item)
         {
-            throw new NotImplementedException();
+            var worker = WorkerMapper.CreateWorker(item);
+
+            await _farmDbContext.AddAsync(worker!);
+
+            await _farmDbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Worker>> GetAllAsync()
+        public virtual async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _farmDbContext.Workers.FindAsync(id);
+
+            _farmDbContext.Remove(entity);
+
+            await _farmDbContext.SaveChangesAsync();
         }
 
-        public Task<Worker> GetByIdAsync(Guid id)
+        public virtual async Task<IEnumerable<WorkerModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = _farmDbContext.Workers;
+
+            var mappedResult = _mapper.Map<IEnumerable<Worker>, IEnumerable<WorkerModel>>(result);
+
+            return await Task.FromResult(mappedResult);
         }
 
-        public Task UpdateAsync(Worker item)
+        public virtual async Task<WorkerModel> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _farmDbContext.Workers.FindAsync(id);
+
+            var mappedEntity = _mapper.Map<WorkerModel>(entity);
+
+            return mappedEntity ?? new WorkerModel();
+        }
+
+        public virtual async Task UpdateAsync(WorkerModel item)
+        {
+            var entity = await _farmDbContext.Workers.FindAsync(item.Id);
+
+            if (entity != null)
+            {
+                entity.UpdateWorker(item);
+
+                await _farmDbContext.SaveChangesAsync();
+            }
         }
     }
+
 }

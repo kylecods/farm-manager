@@ -1,37 +1,71 @@
-﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Entities;
+using Entities.Models;
+using Entities.Extensions;
+using Repositories.Mappers;
+
 
 namespace Repositories
 {
     public class WorkerTrackerRepository : IWorkerTrackerRepository
     {
-        public Task AddAsync(WorkerTracker item)
+        private readonly FarmDbContext _farmDbContext;
+
+        private readonly IMapper _mapper;
+
+        public WorkerTrackerRepository(FarmDbContext farmDbContext, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _farmDbContext = farmDbContext ?? throw new ArgumentNullException();
+
+            _mapper = mapper ?? throw new ArgumentNullException();
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task AddAsync(WorkerTrackerModel item)
         {
-            throw new NotImplementedException();
+            var workerTracker = WorkerTrackerMapper.CreateWorkerTracker(item);
+
+            await _farmDbContext.AddAsync(workerTracker!);
+
+            await _farmDbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<WorkerTracker>> GetAllAsync()
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _farmDbContext.WorkerTrackers.FindAsync(id);
+
+            _farmDbContext.Remove(entity);
+
+            await _farmDbContext.SaveChangesAsync();
         }
 
-        public Task<WorkerTracker> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<WorkerTrackerModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = _farmDbContext.WorkerTrackers;
+
+            var mappedResult = _mapper.Map<IEnumerable<WorkerTracker>, IEnumerable<WorkerTrackerModel>>(result);
+
+            return await Task.FromResult(mappedResult);
         }
 
-        public Task UpdateAsync(WorkerTracker item)
+        public async Task<WorkerTrackerModel> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _farmDbContext.WorkerTrackers.FindAsync(id);
+
+            var mappedEntity = _mapper.Map<WorkerTrackerModel>(entity);
+
+            return mappedEntity;
+        }
+
+        public async Task UpdateAsync(WorkerTrackerModel item)
+        {
+            var entity = await _farmDbContext.WorkerTrackers.FindAsync(item.Id);
+
+            if (entity != null)
+            {
+                entity.UpdateWorkerTracker(item);
+
+                await _farmDbContext.SaveChangesAsync();
+            }
         }
     }
 }
