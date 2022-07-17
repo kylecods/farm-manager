@@ -47,18 +47,24 @@ namespace DataManagement.Controllers
             {
                 await _workerService.AddWorkerAsync(model);
 
+                TempData["Success"] = "Worker added.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                TempData["Error"] = $"Failed. {ex.Message}";
+
+                return View(model);
             }
         }
 
         // GET: WorkerController/Edit/5
-        public ActionResult Edit(Guid id)
+        public async ValueTask<ActionResult> Edit(Guid id)
         {
-            return View();
+            var worker = await _workerService.GetWorkerByIdAsync(id);
+
+            return View(worker!);
         }
 
         // POST: WorkerController/Edit/5
@@ -72,17 +78,14 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                TempData["Error"] = $"Failed. {ex.Message}";
+
+                return View(model);
             }
         }
 
-        // GET: WorkerController/Delete/5
-        public ActionResult Delete(Guid id)
-        {
-            return View();
-        }
 
         // POST: WorkerController/Delete/5
         [HttpPost]

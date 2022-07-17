@@ -1,20 +1,20 @@
 ﻿
-function loadWorkerData() {
-    fetch('/worker/getallworkers').then(response => response.json()).then(data => {
+function loadTrackerWorkersData() {
+    fetch('/workertracker/gettrackedworkerdata').then(response => response.json()).then(data => {
 
-        $('#workerDatatable').DataTable({
+        $('#trackedWorkersDatatable').DataTable({
             "data": data,
             "responsive": true,
             "fnRowCallback": (nRow, aData) => {
-                console.log(aData)
+
                 const dateData = new Date(aData.createdDate);
                 let formatted = dateData.toISOString().slice(0, 10).replace(/-/g, '');
                 let dt_created = `${formatted.substring(4, 6)}/${formatted.substring(6)}/${formatted.substring(0, 4)}`;
 
 
-                let editUrl = '<a href="/worker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
+                let editUrl = '<a href="/workertracker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
 
-                let deleteUrl = `<a href="#" onclick="showDeleteWorkerModal('${aData.id}')" class="dropdown-item">Delete</a>`;
+                let deleteUrl = `<a onclick="showDeleteTWModal('${aData.id}')" class="dropdown-item"><i class="bi bi-trash"></i>Delete</a>`;
 
                 let actions =
                     `<div class="dropdown">
@@ -30,16 +30,15 @@ function loadWorkerData() {
 
                 $('td:eq(0)', nRow).html(dt_created);
 
-                $('td:eq(3)', nRow).html(actions);
+                $('td:eq(2)', nRow).html(actions);
             },
-            "processing": true,
+            "processing": true,  
             "bDestroy": true,
             "pageLength": 10,
             "order": [[0, "desc"]],
             "columns": [
                 { "mDataProp": "createdDate", "sTitle": "Created Date" },
-                { "mDataProp": "workerName", "sTitle": "Worker Name" },
-                { "mDataProp": "phoneNumber", "sTitle": "Phone Number" },
+                { "mDataProp": "kiloGramsPicked", "sTitle": "KGs Picked" },
                 { "mDataProp": "id", "sTitle": "Actions" },
 
             ],
@@ -47,35 +46,37 @@ function loadWorkerData() {
             "buttons": [
                 {
                     className: "btn btn-sm",
-                    text: 'Create Worker',
+                    text: 'Create Tracked Worker',
                     action: function (dt) {
-                        window.location.href = '/worker/create'
+                        window.location.href = '/workertracker/create'
                     }
                 }
             ]
 
         });
     });
+
 }
 
-let deleteWorkerModal = new bootstrap.Modal(document.getElementById('deleteWorkerModal'), {
+
+let deleteTrackerWModal = new bootstrap.Modal(document.getElementById('deleteTrackedWorkersModal'), {
     keyboard: false
 })
 
-function showDeleteWorkerModal(id) {
-    let deleteInput = document.getElementById('deleteWInput');
+function showDeleteTWModal(id) {
+    let deleteInput = document.getElementById('deleteTWInput');
 
     deleteInput.value = id
 
-    deleteWorkerModal.show();
+    deleteTrackerWModal.show();
 }
 
-document.getElementById('deleteWorker').addEventListener('click', () => {
-    let deleteInput = document.getElementById('deleteWInput');
+document.getElementById('deleteTrackedWorker').addEventListener('click', () => {
+    let deleteInput = document.getElementById('deleteTWInput');
 
     let id = deleteInput.value;
 
-    let url = '/worker/delete';
+    let url = '/factory/delete';
     fetch(url, {
         body: "id=" + id,
         method: "post",
@@ -86,15 +87,14 @@ document.getElementById('deleteWorker').addEventListener('click', () => {
 
     }).then((response) => response.json()).then((data) => {
         if (data.message === 'Success') {
-            deleteWorkerModal.hide();
-            loadWorkerData();
+            deleteTrackerWModal.hide();
+            loadTrackerWorkersData();
             alertMessage("Deleted the record.", 'success');
         } else {
-            deleteWorkerModal.hide();
+            deleteTrackerWModal.hide();
             alertMessage(data.message, 'danger');
         }
     });
 });
 
-loadWorkerData();
-
+loadTrackerWorkersData();

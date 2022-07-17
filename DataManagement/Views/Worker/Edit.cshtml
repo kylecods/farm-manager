@@ -9,7 +9,7 @@
 
 <div class="row justify-content-center pt-5">
    <div class="col col-lg-6 col-sm-12 align-items-between">
-     
+        @await Html.PartialAsync("_Alerts")
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(x=>x.Id);

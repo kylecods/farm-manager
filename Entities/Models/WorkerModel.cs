@@ -13,5 +13,7 @@ namespace Entities.Models
         [RegularExpression("^(?!0+$)(\\+\\254[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone number.")]
         [MaxLength(13)]
         public string PhoneNumber { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

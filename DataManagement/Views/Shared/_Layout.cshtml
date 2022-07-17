@@ -8,7 +8,7 @@
   
     <link rel="stylesheet" href="~/DataManagement.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/ui-kit/css/uikit.min.css" asp-append-version="true"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.css"/>
      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
@@ -32,6 +32,12 @@
                                 <a class="nav-link" asp-action="Index" asp-Controller="Worker">Workers</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" asp-action="Index" asp-Controller="FactoryCollections">Factory Collections</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Index" asp-Controller="WorkerTracker">Worker Tracker</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Logout</a>
                             </li>
                         }
@@ -53,12 +59,12 @@
             &copy; 2022 - Factory Manager
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     
-    <script src="~/lib/ui-kit/js/uikit.min.js"></script>
-    <script src="~/lib/ui-kit/js/uikit-icons.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

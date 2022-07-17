@@ -1,7 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-<h4 class="mt-5">Workers</h4>
+
+<h4 class="mt-5">Worker Tracker</h4>
 <div id="showAlert"></div>
 @await Html.PartialAsync("_Alerts")
 <div class="row justify-content-center">
@@ -9,13 +10,13 @@
 
    <div class="col col-lg-12 col-md-12">
       
-        <table class="table table-striped" id="workerDatatable">
+        <table class="table table-striped" id="trackedWorkersDatatable">
 
         </table>
 
    </div>
 
-<div class="modal fade" id="deleteWorkerModal" tabindex="-1" aria-labelledby="deleteWorkerModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteTrackedWorkersModal" tabindex="-1" aria-labelledby="deleteTrackedWorkersModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -23,12 +24,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <input type="hidden" class="form-control" id="deleteWInput">
+          <input type="hidden" class="form-control" id="deleteTWInput">
           <h4>Are you sure you want to delete the record?</h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" id="deleteWorker">Delete</button>
+        <button type="button" class="btn btn-danger" id="deleteTrackedWorker">Delete</button>
       </div>
     </div>
   </div>
@@ -36,5 +37,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/worker.js" asp-append-version="true"></script>
+    <script src="~/js/workerTracker.js" asp-append-version="true"></script>
 }

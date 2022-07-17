@@ -48,15 +48,21 @@ namespace DataManagement.Controllers
                 {
                     await _factoryService.AddFactoryAsync(model);
 
+                    TempData["Success"] = "Factory added.";
+
                     return RedirectToAction(nameof(Index));
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return View();
+                    TempData["Error"] = $"Failed. {ex.Message}";
+
+                    return View(model);
                 }
             }
 
-            return View();
+            TempData["Error"] = "Model State is not valid";
+
+            return View(model);
             
         }
 
@@ -77,11 +83,15 @@ namespace DataManagement.Controllers
             {
                 await _factoryService.UpdateFactoryAsync(model);
 
+                TempData["Success"] = "Factory updated.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                TempData["Error"] = $"Failed. {ex.Message}";
+
+                return View(model);
             }
         }
 

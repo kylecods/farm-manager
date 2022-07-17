@@ -8,7 +8,7 @@ namespace Repositories.Mappers
     {
         public WorkerTrackerMapper()
         {
-            CreateMap<WorkerTrackerMapper, WorkerTrackerModel>();
+            CreateMap<WorkerTracker, WorkerTrackerModel>();
         }
 
         public static WorkerTracker CreateWorkerTracker(WorkerTrackerModel model)
@@ -16,6 +16,8 @@ namespace Repositories.Mappers
             var workerTracker = new WorkerTracker();
 
             workerTracker.SetNewId();
+
+            workerTracker.WorkerId = model.WorkerId;
 
             workerTracker.KiloGramsPicked = model.KiloGramsPicked;
 

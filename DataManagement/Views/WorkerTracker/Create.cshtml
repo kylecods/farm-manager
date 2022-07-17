@@ -1,0 +1,40 @@
+﻿@using Entities.Models;
+@model WorkerTrackerModel
+
+@{
+    ViewData["Title"] = "Create Tracked Worker";
+}
+
+<h2 class="text-center pt-3">Create Tracked Worker</h2>
+
+<div class="row justify-content-center pt-5">
+   <div class="col col-lg-6 col-sm-12 align-items-between">
+     
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="WorkerId" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <select class="form-select py-0" asp-for="WorkerId" asp-items="Model.Workers"></select> 
+               
+            </div>
+            <label asp-for="KiloGramsPicked" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <input asp-for="KiloGramsPicked" class="form-control py-0" aria-required="true" />
+                <span asp-validation-for="KiloGramsPicked" class="text-danger"></span>
+            </div>
+            
+            <div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+            </div>
+        </form>
+          
+      
+   </div>
+
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

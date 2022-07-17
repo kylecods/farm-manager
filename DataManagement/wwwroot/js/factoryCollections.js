@@ -1,20 +1,20 @@
 ﻿
-function loadWorkerData() {
-    fetch('/worker/getallworkers').then(response => response.json()).then(data => {
+function loadFactoryCData() {
+    fetch('/factorycollections/getfactorycollectiondata').then(response => response.json()).then(data => {
 
-        $('#workerDatatable').DataTable({
+        $('#factoryCollectionDatatable').DataTable({
             "data": data,
             "responsive": true,
             "fnRowCallback": (nRow, aData) => {
-                console.log(aData)
-                const dateData = new Date(aData.createdDate);
-                let formatted = dateData.toISOString().slice(0, 10).replace(/-/g, '');
-                let dt_created = `${formatted.substring(4, 6)}/${formatted.substring(6)}/${formatted.substring(0, 4)}`;
+
+                const paidDateData = new Date(aData.paidDate);
+                let formattedPDate = paidDateData.toISOString().slice(0, 10).replace(/-/g, '');
+                let pd_created = `${formattedPDate.substring(4, 6)}/${formattedPDate.substring(6)}/${formattedPDate.substring(0, 4)}`;
 
 
-                let editUrl = '<a href="/worker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
+                let editUrl = '<a href="/factorycollections/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
 
-                let deleteUrl = `<a href="#" onclick="showDeleteWorkerModal('${aData.id}')" class="dropdown-item">Delete</a>`;
+                let deleteUrl = `<a onclick="showFactoryCModal('${aData.id}')" class="dropdown-item">Delete</a>`;
 
                 let actions =
                     `<div class="dropdown">
@@ -28,7 +28,9 @@ function loadWorkerData() {
                         </ul>
                     </div>`
 
-                $('td:eq(0)', nRow).html(dt_created);
+                
+
+                $('td:eq(2)', nRow).html(pd_created);
 
                 $('td:eq(3)', nRow).html(actions);
             },
@@ -37,9 +39,9 @@ function loadWorkerData() {
             "pageLength": 10,
             "order": [[0, "desc"]],
             "columns": [
-                { "mDataProp": "createdDate", "sTitle": "Created Date" },
-                { "mDataProp": "workerName", "sTitle": "Worker Name" },
-                { "mDataProp": "phoneNumber", "sTitle": "Phone Number" },
+                { "mDataProp": "weight", "sTitle": "Weight" },
+                { "mDataProp": "amountPaid", "sTitle": "Paid Amount" },
+                { "mDataProp": "paidDate", "sTitle": "Paid Date" },
                 { "mDataProp": "id", "sTitle": "Actions" },
 
             ],
@@ -47,9 +49,9 @@ function loadWorkerData() {
             "buttons": [
                 {
                     className: "btn btn-sm",
-                    text: 'Create Worker',
+                    text: 'Create Factory Collection',
                     action: function (dt) {
-                        window.location.href = '/worker/create'
+                        window.location.href = '/factorycollections/create'
                     }
                 }
             ]
@@ -58,24 +60,26 @@ function loadWorkerData() {
     });
 }
 
-let deleteWorkerModal = new bootstrap.Modal(document.getElementById('deleteWorkerModal'), {
+
+
+let deleteFactoryCModal = new bootstrap.Modal(document.getElementById('deleteFactoryCollectionModal'), {
     keyboard: false
 })
 
-function showDeleteWorkerModal(id) {
-    let deleteInput = document.getElementById('deleteWInput');
+function showFactoryCModal(id) {
+    let deleteInput = document.getElementById('deleteFCInput');
 
     deleteInput.value = id
 
-    deleteWorkerModal.show();
+    deleteFactoryCModal.show();
 }
 
-document.getElementById('deleteWorker').addEventListener('click', () => {
-    let deleteInput = document.getElementById('deleteWInput');
+document.getElementById('deleteFactoryCollection').addEventListener('click', () => {
+    let deleteInput = document.getElementById('deleteFCInput');
 
     let id = deleteInput.value;
 
-    let url = '/worker/delete';
+    let url = '/factory/delete';
     fetch(url, {
         body: "id=" + id,
         method: "post",
@@ -86,15 +90,14 @@ document.getElementById('deleteWorker').addEventListener('click', () => {
 
     }).then((response) => response.json()).then((data) => {
         if (data.message === 'Success') {
-            deleteWorkerModal.hide();
-            loadWorkerData();
+            deleteFactoryCModal.hide();
+            loadFactoryCData();
             alertMessage("Deleted the record.", 'success');
         } else {
-            deleteWorkerModal.hide();
+            deleteFactoryCModal.hide();
             alertMessage(data.message, 'danger');
         }
     });
 });
 
-loadWorkerData();
-
+loadFactoryCData();
