@@ -106,11 +106,12 @@ namespace Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte>("Activity")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Activity")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("AmountPaid")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(38, 10)
+                        .HasColumnType("decimal(38,10)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");

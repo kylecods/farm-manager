@@ -79,7 +79,7 @@ document.getElementById('deleteFactoryCollection').addEventListener('click', () 
 
     let id = deleteInput.value;
 
-    let url = '/factory/delete';
+    let url = '/factoryCollections/delete';
     fetch(url, {
         body: "id=" + id,
         method: "post",

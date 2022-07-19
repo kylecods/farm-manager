@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Index";
+
+    var workerName = ViewBag.Name as string;
+
 }
 
-<h4 class="mt-5">Worker Tracker</h4>
+<h4 class="mt-5">@workerName's work history</h4>
 <div id="showAlert"></div>
 @await Html.PartialAsync("_Alerts")
 <div class="row justify-content-center">

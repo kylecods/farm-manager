@@ -10,18 +10,21 @@ namespace Entities.Models
         [Display(Name = "Worker Name")]
         public Guid WorkerId { get; set; }
 
-        [Required]
+        [Display(Name = "Activity Done")]
+        public Activities Activity { get; set; }
+
         [Display(Name = "KGs Picked")]
         public decimal KiloGramsPicked { get; set; }
 
-        public byte Activity { get; set; }
+        public string ActivityDesc => Enum.GetName(typeof(Activities), Activity);
 
+        [Display(Name = "Amount Paid(per KG)")]
         public decimal AmountPaid { get; set; }
 
+        [Display(Name = "Date work done")]
         public DateTime PickedDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
-        public List<SelectListItem> Workers { get; set; }
     }
 }

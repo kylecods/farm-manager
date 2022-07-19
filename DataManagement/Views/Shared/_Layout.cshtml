@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Factory Manager</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Farm Manager</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,12 +30,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="Index" asp-Controller="Worker">Workers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-action="Index" asp-Controller="FactoryCollections">Factory Collections</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-action="Index" asp-Controller="WorkerTracker">Worker Tracker</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Logout</a>
@@ -56,7 +50,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year - Factory Manager
+            &copy; @DateTime.UtcNow.Year - Farm Manager
         </div>
     </footer>
 

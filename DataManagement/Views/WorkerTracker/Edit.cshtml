@@ -2,7 +2,7 @@
 @model WorkerTrackerModel
 
 @{
-    ViewData["Title"] = "Create Tracked Worker";
+    ViewData["Title"] = "Edit Record";
 }
 
 <h2 class="text-center pt-3">Create Tracked Worker</h2>
@@ -10,21 +10,33 @@
 <div class="row justify-content-center pt-5">
    <div class="col col-lg-6 col-sm-12 align-items-between">
      
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <label asp-for="WorkerId" class="form-label"></label>
+            @Html.HiddenFor(x => x.WorkerId)
+            <label asp-for="Activity" class="form-label"></label>
             <div class="form-floating mb-2">
-                <select class="form-select py-0" asp-for="WorkerId" asp-items="Model.Workers"></select> 
+                <select class="form-select py-0" asp-for="Activity" asp-items="Html.GetEnumSelectList<Activities>()"></select> 
                
             </div>
-            <label asp-for="KiloGramsPicked" class="form-label"></label>
+
+            <label asp-for="KiloGramsPicked" class="form-label" id="lbl-kg"></label>
             <div class="form-floating mb-2">
                 <input asp-for="KiloGramsPicked" class="form-control py-0" aria-required="true" />
-                <span asp-validation-for="KiloGramsPicked" class="text-danger"></span>
+            <span asp-validation-for="KiloGramsPicked" class="text-danger"></span>
+            </div>
+            <label asp-for="AmountPaid" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <input asp-for="AmountPaid" class="form-control py-0" aria-required="true" />
+                <span asp-validation-for="AmountPaid" class="text-danger"></span>
+            </div>
+            <label asp-for="PickedDate" class="form-label"></label>
+            <div class="form-floating mb-2">
+                <input asp-for="PickedDate" class="form-control py-0" type="date" asp-format="{0:yyyy-MM-dd}"/>
+                <span asp-validation-for="PickedDate" class="text-danger"></span>
             </div>
             
             <div>
-                <button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Edit</button>
             </div>
         </form>
           
@@ -37,4 +49,37 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        let kgPickedElem = document.getElementById('KiloGramsPicked');
+
+        let selectElem = document.getElementById('Activity');
+
+        let kgLabel = document.getElementById('lbl-kg');
+
+        window.onload = () => {
+            let value = selectElem.value;
+            if (value === '1') {
+                kgPickedElem.hidden = false
+                kgLabel.hidden = false
+            } else {
+                kgPickedElem.hidden = true
+                kgLabel.hidden = true
+            }
+
+        }
+
+        selectElem.addEventListener('change', (e) => {
+            let value = e.target.value;
+
+            if (value === '1') {
+                kgPickedElem.hidden = false
+                kgLabel.hidden = false
+            } else {
+                kgPickedElem.hidden = true
+                kgLabel.hidden = true
+            }
+
+        })
+    </script>
 }

@@ -21,6 +21,12 @@ namespace Repositories.Mappers
 
             workerTracker.KiloGramsPicked = model.KiloGramsPicked;
 
+            workerTracker.Activity = model.Activity;
+
+            workerTracker.AmountPaid = model.AmountPaid;
+
+            workerTracker.PickedDate = model.PickedDate;
+
             workerTracker.CreatedDate = DateTime.Now;
 
             return workerTracker;

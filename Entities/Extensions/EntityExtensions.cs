@@ -26,6 +26,12 @@ namespace Entities.Extensions
             workerTracker.WorkerId = copy.WorkerId;
 
             workerTracker.KiloGramsPicked = copy.KiloGramsPicked;
+
+            workerTracker.Activity = copy.Activity;
+
+            workerTracker.AmountPaid = copy.AmountPaid;
+
+            workerTracker.PickedDate = copy.PickedDate;
         }
 
         public static void UpdateFactoryCollection(this FactoryCollection factoryCollection, FactoryCollectionModel copy)

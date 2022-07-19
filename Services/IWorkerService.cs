@@ -23,6 +23,8 @@ namespace Services
 
         Task<List<WorkerTrackerModel>> GetAllWorkerTrackersAsync();
 
+        Task<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId);
+
         Task<WorkerTrackerModel> GetWorkerTrackerByIdAsync(Guid id);
     }
 }

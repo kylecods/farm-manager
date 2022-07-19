@@ -14,6 +14,8 @@ function loadWorkerData() {
 
                 let editUrl = '<a href="/worker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
 
+                let viewMoreUrl = '<a href="/workertracker/index/' + aData.id + '" class="dropdown-item">View Work</a>';
+
                 let deleteUrl = `<a href="#" onclick="showDeleteWorkerModal('${aData.id}')" class="dropdown-item">Delete</a>`;
 
                 let actions =
@@ -23,6 +25,7 @@ function loadWorkerData() {
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li>${viewMoreUrl}</li>
                             <li>${editUrl}</li>
                             <li>${deleteUrl}</li>
                         </ul>

@@ -48,6 +48,13 @@ namespace Services
             return workerTrackers.ToList();
         }
 
+        public async Task<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId)
+        {
+            var workerTrackers = await _workerTrackerRepository.GetAllByWorkerIdAsync(workerId);
+
+            return workerTrackers.ToList();
+        }
+
         public Task<WorkerModel> GetWorkerByIdAsync(Guid id)
         {
             return _workerRepository.GetByIdAsync(id);

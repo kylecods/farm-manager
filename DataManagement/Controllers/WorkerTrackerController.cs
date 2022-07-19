@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Services;
 
 namespace DataManagement.Controllers
@@ -17,8 +16,12 @@ namespace DataManagement.Controllers
             _workerService = workerService;
         }
         // GET: WorkerTrackerController
-        public ActionResult Index()
+        public async ValueTask<ActionResult> Index(Guid id)
         {
+            var worker = await _workerService.GetWorkerByIdAsync(id);
+
+            ViewBag.Name = worker!.WorkerName;
+
             return View();
         }
 
@@ -29,25 +32,23 @@ namespace DataManagement.Controllers
             return Json(data ?? new List<WorkerTrackerModel>());
         }
 
-        // GET: WorkerTrackerController/Create
-        public async ValueTask<ActionResult> Create()
+        public async ValueTask<JsonResult> GetTrackedWorkerDataByWorkerId(string id)
         {
+            var data = await _workerService.GetAllWorkerTrackersByWorkerIdAsync(Guid.Parse(id));
+
+            return Json(data ?? new List<WorkerTrackerModel>());
+        }
+
+        // GET: WorkerTrackerController/Create
+        public async ValueTask<ActionResult> Create(Guid id)
+        {
+            var trackedWorker = await _workerService.GetWorkerByIdAsync(id!);
+
             var workerTracker = new WorkerTrackerModel();
 
-            var workers = await _workerService.GetAllWorkersAsync();
+            workerTracker.PickedDate = DateTime.Now;
 
-            workerTracker.Workers = new List<SelectListItem>();
-
-
-            foreach (var worker in workers)
-            {
-                var item = new SelectListItem()
-                {
-                    Value = worker.Id.ToString(),
-                    Text = worker.WorkerName
-                };
-                workerTracker.Workers.Add(item);
-            }
+            workerTracker.WorkerId = trackedWorker.Id; 
 
             return View(workerTracker);
         }
@@ -63,13 +64,13 @@ namespace DataManagement.Controllers
 
                 TempData["Success"] = "Tracked worker information added.";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/workerTracker/index/{model.WorkerId}");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction($"/workerTracker/index/{model.WorkerId}");
             }
         }
 
@@ -92,13 +93,13 @@ namespace DataManagement.Controllers
 
                 TempData["Success"] = $"Tracked worker information updated.";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/workerTracker/index/{model.WorkerId}");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/workerTracker/index/{model.WorkerId}");
             }
         }
 

@@ -1,6 +1,10 @@
 ﻿
 function loadTrackerWorkersData() {
-    fetch('/workertracker/gettrackedworkerdata').then(response => response.json()).then(data => {
+    let windowUrl = window.location.href.split('/');
+
+    let url = '/workertracker/gettrackedworkerdatabyworkerId?id=' + windowUrl[5]
+
+    fetch(url).then(response => response.json()).then(data => {
 
         $('#trackedWorkersDatatable').DataTable({
             "data": data,
@@ -11,10 +15,18 @@ function loadTrackerWorkersData() {
                 let formatted = dateData.toISOString().slice(0, 10).replace(/-/g, '');
                 let dt_created = `${formatted.substring(4, 6)}/${formatted.substring(6)}/${formatted.substring(0, 4)}`;
 
+                const pickedDateData = new Date(aData.createdDate);
+                let formattedPD = pickedDateData.toISOString().slice(0, 10).replace(/-/g, '');
+                let pd_created = `${formattedPD.substring(4, 6)}/${formattedPD.substring(6)}/${formattedPD.substring(0, 4)}`;
+
+                let kgPicked = aData.kiloGramsPicked === 0 ? '---' : aData.kiloGramsPicked;
+
+                let amount = aData.kiloGramsPicked !== 0 ? `${aData.amountPaid} per unit` : aData.amountPaid;
+
 
                 let editUrl = '<a href="/workertracker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
 
-                let deleteUrl = `<a onclick="showDeleteTWModal('${aData.id}')" class="dropdown-item"><i class="bi bi-trash"></i>Delete</a>`;
+                let deleteUrl = `<a onclick="showDeleteTWModal('${aData.id}')" class="dropdown-item">Delete</a>`;
 
                 let actions =
                     `<div class="dropdown">
@@ -30,7 +42,13 @@ function loadTrackerWorkersData() {
 
                 $('td:eq(0)', nRow).html(dt_created);
 
-                $('td:eq(2)', nRow).html(actions);
+                $('td:eq(2)', nRow).html(kgPicked);
+
+                $('td:eq(3)', nRow).html(amount);
+
+                $('td:eq(4)', nRow).html(pd_created);
+
+                $('td:eq(5)', nRow).html(actions);
             },
             "processing": true,  
             "bDestroy": true,
@@ -38,7 +56,10 @@ function loadTrackerWorkersData() {
             "order": [[0, "desc"]],
             "columns": [
                 { "mDataProp": "createdDate", "sTitle": "Created Date" },
+                { "mDataProp": "activityDesc", "sTitle": "Activity Done" },
                 { "mDataProp": "kiloGramsPicked", "sTitle": "KGs Picked" },
+                { "mDataProp": "amountPaid", "sTitle": "Amount Paid" },
+                { "mDataProp": "pickedDate", "sTitle": "Date Work Done" },
                 { "mDataProp": "id", "sTitle": "Actions" },
 
             ],
@@ -46,9 +67,11 @@ function loadTrackerWorkersData() {
             "buttons": [
                 {
                     className: "btn btn-sm",
-                    text: 'Create Tracked Worker',
+                    text: 'Record work done',
                     action: function (dt) {
-                        window.location.href = '/workertracker/create'
+                        let currentUrl = window.location.href.split('/');
+                        let workerId = currentUrl[5];
+                        window.location.href = '/workertracker/create/'+ workerId
                     }
                 }
             ]
@@ -76,7 +99,7 @@ document.getElementById('deleteTrackedWorker').addEventListener('click', () => {
 
     let id = deleteInput.value;
 
-    let url = '/factory/delete';
+    let url = '/workerTracker/delete';
     fetch(url, {
         body: "id=" + id,
         method: "post",

@@ -47,6 +47,15 @@ namespace Repositories
             return await Task.FromResult(mappedResult);
         }
 
+        public async Task<IEnumerable<WorkerTrackerModel>> GetAllByWorkerIdAsync(Guid workerId)
+        {
+            var result = _farmDbContext.WorkerTrackers.Where(x => x.WorkerId == workerId).AsEnumerable();
+
+            var mappedResult = _mapper.Map<IEnumerable<WorkerTracker>, IEnumerable<WorkerTrackerModel>>(result);
+
+            return await Task.FromResult(mappedResult);
+        }
+
         public async Task<WorkerTrackerModel> GetByIdAsync(Guid id)
         {
             var entity = await _farmDbContext.WorkerTrackers.FindAsync(id);

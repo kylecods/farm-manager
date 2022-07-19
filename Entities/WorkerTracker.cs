@@ -1,4 +1,5 @@
-﻿
+﻿using Entities.Models;
+
 namespace Entities
 {
     public class WorkerTracker : Entity
@@ -9,7 +10,7 @@ namespace Entities
 
         public decimal KiloGramsPicked { get; set; }
 
-        public byte Activity { get; set; }
+        public Activities Activity { get; set; }
 
         public decimal AmountPaid { get; set; }
 
