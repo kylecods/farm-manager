@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Entities;
 using Entities.Models;
-using Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Services;
 
 namespace DataManagement.Controllers
 {
@@ -44,7 +43,8 @@ namespace DataManagement.Controllers
 
             foreach (var factory in factories)
             {
-                var item = new SelectListItem() {
+                var item = new SelectListItem()
+                {
                     Value = factory.Id.ToString(),
                     Text = factory.FactoryName
                 };
@@ -67,7 +67,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -96,7 +96,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -112,9 +112,9 @@ namespace DataManagement.Controllers
             {
                 await _factoryService.DeleteFactoryCollectionAsync(Guid.Parse(id));
 
-                return Json(new { message = "Success"});
+                return Json(new { message = "Success" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { message = $"Failed. {ex.Message}" });
             }

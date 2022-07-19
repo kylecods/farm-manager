@@ -28,7 +28,7 @@ namespace Entities.Extensions
             workerTracker.KiloGramsPicked = copy.KiloGramsPicked;
         }
 
-        public static void UpdateFactoryCollection(this FactoryCollection factoryCollection,FactoryCollectionModel copy)
+        public static void UpdateFactoryCollection(this FactoryCollection factoryCollection, FactoryCollectionModel copy)
         {
             factoryCollection.AmountPaid = copy.AmountPaid;
 

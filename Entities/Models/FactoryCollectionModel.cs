@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Entities.Models
 {
@@ -16,7 +16,7 @@ namespace Entities.Models
         [Required]
         public decimal Weight { get; set; }
 
-        [Display(Name="Amount Paid")]
+        [Display(Name = "Amount Paid")]
         public decimal AmountPaid { get; set; }
 
         [Display(Name = "Date Paid")]

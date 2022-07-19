@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Services;
 using Repositories;
 using Repositories.Mappers;
+using Services;
 
 namespace DataManagement
 {
@@ -22,10 +22,10 @@ namespace DataManagement
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddAutoMapper(config => {
+            services.AddAutoMapper(config =>
+            {
                 config.AddProfile<FactoryMapper>();
                 config.AddProfile<WorkerMapper>();
                 config.AddProfile<FactoryCollectionMapper>();
@@ -36,7 +36,8 @@ namespace DataManagement
 
             services.AddRazorPages();
 
-            services.AddDbContext<FarmDbContext>(options => {
+            services.AddDbContext<FarmDbContext>(options =>
+            {
                 options.UseSqlServer(connectionString);
             });
 
@@ -49,7 +50,8 @@ namespace DataManagement
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<DataManagementContext>();
 
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
@@ -67,7 +69,8 @@ namespace DataManagement
 
             });
 
-            services.ConfigureApplicationCookie(options => {
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(5);
 
@@ -76,7 +79,6 @@ namespace DataManagement
                 options.SlidingExpiration = true;
 
             });
-
 
             //Repositories
             services.AddScoped<IFactoryRepository, FactoryRepository>();
@@ -92,7 +94,7 @@ namespace DataManagement
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if(env.IsDevelopment()) app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseCors();
             app.UseStaticFiles();
@@ -100,7 +102,8 @@ namespace DataManagement
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();

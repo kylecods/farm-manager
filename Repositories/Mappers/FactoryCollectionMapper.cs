@@ -8,7 +8,7 @@ namespace Repositories.Mappers
     {
         public FactoryCollectionMapper()
         {
-                CreateMap<FactoryCollection, FactoryCollectionModel>();
+            CreateMap<FactoryCollection, FactoryCollectionModel>();
         }
 
         public static FactoryCollection CreateFactoryCollection(FactoryCollectionModel model)
@@ -19,7 +19,7 @@ namespace Repositories.Mappers
 
             factoryCollection.FactoryId = model.FactoryId;
 
-            factoryCollection.Weight = model.Weight; 
+            factoryCollection.Weight = model.Weight;
 
             factoryCollection.AmountPaid = model.AmountPaid;
 

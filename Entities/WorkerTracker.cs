@@ -1,7 +1,7 @@
 ﻿
 namespace Entities
 {
-    public class WorkerTracker :Entity
+    public class WorkerTracker : Entity
     {
         public Guid? WorkerId { get; set; }
 

@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
-using Services;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 
 namespace DataManagement.Controllers
@@ -14,7 +14,7 @@ namespace DataManagement.Controllers
     {
         private readonly IWorkerService _workerService;
 
-        public WorkerController( IWorkerService workerService)
+        public WorkerController(IWorkerService workerService)
         {
             _workerService = workerService;
         }
@@ -51,7 +51,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -78,7 +78,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 

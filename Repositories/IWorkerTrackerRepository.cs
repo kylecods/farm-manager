@@ -2,7 +2,7 @@
 
 namespace Repositories
 {
-    public interface IWorkerTrackerRepository : IRepository<WorkerTrackerModel,Guid>
+    public interface IWorkerTrackerRepository : IRepository<WorkerTrackerModel, Guid>
     {
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Entities;
-using Entities.Models;
 using Entities.Extensions;
+using Entities.Models;
 using Repositories.Mappers;
 
 

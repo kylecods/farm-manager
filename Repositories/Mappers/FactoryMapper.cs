@@ -1,6 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Entities.Models;
-using AutoMapper;
 
 namespace Repositories.Mappers
 {
@@ -14,7 +14,7 @@ namespace Repositories.Mappers
         public static Factory CreateFactory(FactoryModel model)
         {
             var factory = new Factory();
-            
+
             factory.SetNewId();
 
             factory.FactoryName = model.FactoryName;
