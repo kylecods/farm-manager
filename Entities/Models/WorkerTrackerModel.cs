@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Entities.Models
 {
@@ -11,7 +11,7 @@ namespace Entities.Models
         public Guid WorkerId { get; set; }
 
         [Required]
-        [Display(Name ="KGs Picked")]
+        [Display(Name = "KGs Picked")]
         public decimal KiloGramsPicked { get; set; }
 
         public byte Activity { get; set; }

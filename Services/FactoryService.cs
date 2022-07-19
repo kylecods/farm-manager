@@ -17,8 +17,8 @@ namespace Services
         }
 
         public Task AddFactoryAsync(FactoryModel item)
-        {  
-             return _factoryRepository.AddAsync(item);
+        {
+            return _factoryRepository.AddAsync(item);
         }
 
         public Task AddFactoryCollectionAsync(FactoryCollectionModel item)
@@ -62,7 +62,7 @@ namespace Services
 
         public Task UpdateFactoryAsync(FactoryModel item)
         {
-            return _factoryRepository.UpdateAsync(item); 
+            return _factoryRepository.UpdateAsync(item);
         }
 
         public Task UpdateFactoryCollectionAsync(FactoryCollectionModel item)

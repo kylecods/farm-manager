@@ -1,13 +1,13 @@
-﻿using DataManagement.Models;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using DataManagement.Models;
+using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Entities.Models;
 
 namespace DataManagement.Controllers
 {
@@ -30,7 +30,7 @@ namespace DataManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFactory([FromForm]FactoryModel model)
+        public async Task<IActionResult> CreateFactory([FromForm] FactoryModel model)
         {
             try
             {
@@ -38,7 +38,8 @@ namespace DataManagement.Controllers
 
                 return Json("Success adding data!");
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Json(e.Message);
             }
@@ -54,7 +55,7 @@ namespace DataManagement.Controllers
         public async Task<JsonResult> GetAllData()
         {
             var data = await _factoryService.GetAllFactoriesAsync();
- 
+
             return Json(data.ToList());
         }
 

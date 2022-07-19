@@ -1,10 +1,10 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Entities.Models;
-using AutoMapper;
 
 namespace Repositories.Mappers
 {
-    public class WorkerMapper:Profile
+    public class WorkerMapper : Profile
     {
         public WorkerMapper()
         {

@@ -1,7 +1,8 @@
-﻿using Entities;
-using Entities.Models;
+﻿using AutoMapper;
+using Entities;
 using Entities.Extensions;
-using AutoMapper;
+using Entities.Models;
+
 using Repositories.Mappers;
 
 namespace Repositories

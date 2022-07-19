@@ -1,10 +1,11 @@
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
 namespace DataManagement
 {
     class Program
     {
-        public static void Main(string[]args)
+        public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }

@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DataManagement</title>
-   
-  
+    <title>@ViewData["Title"] - Factory Manager</title>
+
     <link rel="stylesheet" href="~/DataManagement.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/ui-kit/css/uikit.min.css" asp-append-version="true"/>
-     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.css"/>
-     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/ui-kit/css/uikit.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
@@ -24,7 +23,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        @if(User.Identity.IsAuthenticated){
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="Index" asp-controller="Factory">Factories</a>
                             </li>
@@ -42,7 +42,7 @@
                             </li>
                         }
 
-                        
+
                     </ul>
                 </div>
             </div>
@@ -56,10 +56,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Factory Manager
+            &copy; @DateTime.UtcNow.Year - Factory Manager
         </div>
     </footer>
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>

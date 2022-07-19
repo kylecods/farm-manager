@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Services;
-using Entities.Models;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entities.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Services;
 
 namespace DataManagement.Controllers
 {
@@ -65,7 +65,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -94,7 +94,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -111,11 +111,11 @@ namespace DataManagement.Controllers
             {
                 await _workerService.DeleteWorkerTrackerAsync(Guid.Parse(id));
 
-                return Json(new {message = "Success"});
+                return Json(new { message = "Success" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new {message = $"Failed. {ex.Message}"});
+                return Json(new { message = $"Failed. {ex.Message}" });
             }
         }
     }

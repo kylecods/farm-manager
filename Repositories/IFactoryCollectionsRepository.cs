@@ -2,7 +2,7 @@
 
 namespace Repositories
 {
-    public interface IFactoryCollectionsRepository : IRepository<FactoryCollectionModel,Guid>
+    public interface IFactoryCollectionsRepository : IRepository<FactoryCollectionModel, Guid>
     {
     }
 }

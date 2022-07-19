@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using Entities.Models;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DataManagement.Controllers
 {
@@ -52,7 +52,7 @@ namespace DataManagement.Controllers
 
                     return RedirectToAction(nameof(Index));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -63,7 +63,7 @@ namespace DataManagement.Controllers
             TempData["Error"] = "Model State is not valid";
 
             return View(model);
-            
+
         }
 
         // GET: FactoryController/Edit/5
@@ -87,7 +87,7 @@ namespace DataManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
@@ -97,7 +97,7 @@ namespace DataManagement.Controllers
 
         // POST: FactoryController/Delete/5
         [HttpPost]
-        public async ValueTask<ActionResult>Delete(string id)
+        public async ValueTask<ActionResult> Delete(string id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace DataManagement.Controllers
 
                 return Json(new { message = "Success" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { message = $"Failed. {ex.Message}" });
             }

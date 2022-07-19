@@ -12,7 +12,7 @@ namespace Services
         {
             _workerRepository = workerRepository;
 
-            _workerTrackerRepository = workerTrackerRepository; 
+            _workerTrackerRepository = workerTrackerRepository;
         }
         public Task AddWorkerAsync(WorkerModel item)
         {
@@ -37,7 +37,7 @@ namespace Services
         public async Task<List<WorkerModel>> GetAllWorkersAsync()
         {
             var workers = await _workerRepository.GetAllAsync();
-            
+
             return workers.ToList();
         }
 
