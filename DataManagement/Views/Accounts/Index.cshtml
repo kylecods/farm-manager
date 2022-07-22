@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<h4 class="mt-5">Accounts</h4>
+<div id="showAlert"></div>
+@await Html.PartialAsync("_Alerts")
+
+<div class="row">
+      
+
+   <div class="col col-lg-12 col-md-12">
+      
+        <table class="table table-striped" id="accountsDatatable">
+
+        </table>
+
+   </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/accounts.js" asp-append-version="true"></script>
+}

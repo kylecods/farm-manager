@@ -17,6 +17,10 @@ namespace Repositories
 
         public DbSet<WorkerTracker> WorkerTrackers { get; set; }
 
+        public DbSet<Accounts> Accounts { get; set; }
+
+        public DbSet<Register> Registers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -36,10 +40,20 @@ namespace Repositories
                 .Property(e => e.AmountPaid)
                 .HasPrecision(38, 10);
 
+            modelBuilder.Entity<Register>()
+                .Property(e => e.Amount)
+                .HasPrecision(38, 10);
+
+            modelBuilder.Entity<Accounts>()
+                .Property(e => e.StartAmount)
+                .HasPrecision(38, 10);
+
             modelBuilder.Entity<Factory>().ToTable("Factory");
             modelBuilder.Entity<Worker>().ToTable("Worker");
             modelBuilder.Entity<FactoryCollection>().ToTable("FactoryCollection");
             modelBuilder.Entity<WorkerTracker>().ToTable("WorkerTracker");
+            modelBuilder.Entity<Accounts>().ToTable("Accounts");
+            modelBuilder.Entity<Register>().ToTable("Register");
         }
     }
 }

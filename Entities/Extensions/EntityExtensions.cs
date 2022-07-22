@@ -15,9 +15,9 @@ namespace Entities.Extensions
         }
         public static void UpdateWorker(this Worker worker, WorkerModel copy)
         {
-            worker.WorkerName = copy.WorkerName;
+            worker.WorkerName = copy.WorkerName!;
 
-            worker.PhoneNumber = copy.PhoneNumber;
+            worker.PhoneNumber = copy.PhoneNumber!;
         }
 
 

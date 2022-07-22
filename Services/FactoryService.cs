@@ -16,56 +16,56 @@ namespace Services
             _factoryCollectionsRepository = factoryCollectionsRepository;
         }
 
-        public Task AddFactoryAsync(FactoryModel item)
+        public ValueTask AddFactoryAsync(FactoryModel item)
         {
             return _factoryRepository.AddAsync(item);
         }
 
-        public Task AddFactoryCollectionAsync(FactoryCollectionModel item)
+        public ValueTask AddFactoryCollectionAsync(FactoryCollectionModel item)
         {
             return _factoryCollectionsRepository.AddAsync(item);
         }
 
-        public Task DeleteFactoryAsync(Guid id)
+        public ValueTask DeleteFactoryAsync(Guid id)
         {
             return _factoryRepository.DeleteAsync(id);
         }
 
-        public Task DeleteFactoryCollectionAsync(Guid id)
+        public ValueTask DeleteFactoryCollectionAsync(Guid id)
         {
             return _factoryCollectionsRepository.DeleteAsync(id);
         }
 
-        public async Task<List<FactoryModel>> GetAllFactoriesAsync()
+        public async ValueTask<List<FactoryModel>> GetAllFactoriesAsync()
         {
             var factories = await _factoryRepository.GetAllAsync();
 
             return factories.ToList();
         }
 
-        public async Task<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync()
+        public async ValueTask<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync()
         {
             var factoryCollections = await _factoryCollectionsRepository.GetAllAsync();
 
             return factoryCollections.ToList();
         }
 
-        public Task<FactoryModel> GetFactoryByIdAsync(Guid id)
+        public ValueTask<FactoryModel> GetFactoryByIdAsync(Guid id)
         {
             return _factoryRepository.GetByIdAsync(id);
         }
 
-        public Task<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id)
+        public ValueTask<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id)
         {
             return _factoryCollectionsRepository.GetByIdAsync(id);
         }
 
-        public Task UpdateFactoryAsync(FactoryModel item)
+        public ValueTask UpdateFactoryAsync(FactoryModel item)
         {
             return _factoryRepository.UpdateAsync(item);
         }
 
-        public Task UpdateFactoryCollectionAsync(FactoryCollectionModel item)
+        public ValueTask UpdateFactoryCollectionAsync(FactoryCollectionModel item)
         {
             return _factoryCollectionsRepository.UpdateAsync(item);
         }

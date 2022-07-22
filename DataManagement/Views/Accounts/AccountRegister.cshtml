@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Accounts Register";
+}
+<h4 class="mt-5">Accounts Register</h4>
+<div id="showAlert"></div>
+@await Html.PartialAsync("_Alerts")
+<div class="row">
+      
+
+   <div class="col col-lg-12 col-md-12">
+      
+        <table class="table table-striped" id="registerDatatable">
+
+        </table>
+
+   </div>
+
+<div class="modal fade" id="deleteFactoryModal" tabindex="-1" aria-labelledby="deleteFactoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Factory</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <input type="hidden" class="form-control" id="deleteInput">
+          <h4>Are you sure you want to delete the factory?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-modal-close">Close</button>
+        <button type="button" class="btn btn-danger" id="deleteFactory">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+@section Scripts{
+    <script src="~/js/register.js" asp-append-version="true"></script>
+}

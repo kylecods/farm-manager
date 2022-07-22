@@ -17,7 +17,7 @@ namespace Repositories
 
             _mapper = mapper ?? throw new ArgumentException();
         }
-        public async Task AddAsync(FactoryCollectionModel item)
+        public async ValueTask AddAsync(FactoryCollectionModel item)
         {
             var factoryCollection = FactoryCollectionMapper.CreateFactoryCollection(item);
 
@@ -26,7 +26,7 @@ namespace Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async ValueTask DeleteAsync(Guid id)
         {
             var entity = await _dbContext.FactoryCollections.FindAsync(id);
 
@@ -35,16 +35,16 @@ namespace Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<FactoryCollectionModel>> GetAllAsync()
+        public virtual async ValueTask<IEnumerable<FactoryCollectionModel>> GetAllAsync()
         {
             var result = _dbContext.FactoryCollections;
 
             var mappedResult = _mapper.Map<IEnumerable<FactoryCollection>, IEnumerable<FactoryCollectionModel>>(result!);
 
-            return await Task.FromResult(mappedResult);
+            return await ValueTask.FromResult(mappedResult);
         }
 
-        public async Task<FactoryCollectionModel> GetByIdAsync(Guid id)
+        public async ValueTask<FactoryCollectionModel> GetByIdAsync(Guid id)
         {
             var entity = await _dbContext.FactoryCollections.FindAsync(id);
 
@@ -53,7 +53,7 @@ namespace Repositories
             return mappedEntity;
         }
 
-        public async Task UpdateAsync(FactoryCollectionModel item)
+        public async ValueTask UpdateAsync(FactoryCollectionModel item)
         {
             var entity = await _dbContext.FactoryCollections.FindAsync(item.Id);
 

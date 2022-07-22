@@ -4,27 +4,27 @@ namespace Services
 {
     public interface IWorkerService
     {
-        Task AddWorkerAsync(WorkerModel item);
+        ValueTask AddWorkerAsync(WorkerModel item);
 
-        Task UpdateWorkerAsync(WorkerModel item);
+        ValueTask UpdateWorkerAsync(WorkerModel item);
 
-        Task DeleteWorkerAsync(Guid id);
+        ValueTask DeleteWorkerAsync(Guid id);
 
-        Task<List<WorkerModel>> GetAllWorkersAsync();
+        ValueTask<List<WorkerModel>> GetAllWorkersAsync();
 
-        Task<WorkerModel> GetWorkerByIdAsync(Guid id);
+        ValueTask<WorkerModel> GetWorkerByIdAsync(Guid id);
 
 
-        Task AddWorkerTrackerAsync(WorkerTrackerModel item);
+        ValueTask AddWorkerTrackerAsync(WorkerTrackerModel item);
 
-        Task UpdateWorkerTrackerAsync(WorkerTrackerModel item);
+        ValueTask UpdateWorkerTrackerAsync(WorkerTrackerModel item);
 
-        Task DeleteWorkerTrackerAsync(Guid id);
+        ValueTask DeleteWorkerTrackerAsync(Guid id);
 
-        Task<List<WorkerTrackerModel>> GetAllWorkerTrackersAsync();
+        ValueTask<List<WorkerTrackerModel>> GetAllWorkerTrackersAsync();
 
-        Task<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId);
+        ValueTask<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId);
 
-        Task<WorkerTrackerModel> GetWorkerTrackerByIdAsync(Guid id);
+        ValueTask<WorkerTrackerModel> GetWorkerTrackerByIdAsync(Guid id);
     }
 }

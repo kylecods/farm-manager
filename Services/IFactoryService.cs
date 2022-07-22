@@ -4,26 +4,26 @@ namespace Services
 {
     public interface IFactoryService
     {
-        Task AddFactoryAsync(FactoryModel item);
+        ValueTask AddFactoryAsync(FactoryModel item);
 
-        Task UpdateFactoryAsync(FactoryModel item);
+        ValueTask UpdateFactoryAsync(FactoryModel item);
 
-        Task DeleteFactoryAsync(Guid id);
+        ValueTask DeleteFactoryAsync(Guid id);
 
-        Task<List<FactoryModel>> GetAllFactoriesAsync();
+        ValueTask<List<FactoryModel>> GetAllFactoriesAsync();
 
-        Task<FactoryModel> GetFactoryByIdAsync(Guid id);
+        ValueTask<FactoryModel> GetFactoryByIdAsync(Guid id);
 
 
 
-        Task AddFactoryCollectionAsync(FactoryCollectionModel item);
+        ValueTask AddFactoryCollectionAsync(FactoryCollectionModel item);
 
-        Task UpdateFactoryCollectionAsync(FactoryCollectionModel item);
+        ValueTask UpdateFactoryCollectionAsync(FactoryCollectionModel item);
 
-        Task DeleteFactoryCollectionAsync(Guid id);
+        ValueTask DeleteFactoryCollectionAsync(Guid id);
 
-        Task<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync();
+        ValueTask<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync();
 
-        Task<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id);
+        ValueTask<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id);
     }
 }

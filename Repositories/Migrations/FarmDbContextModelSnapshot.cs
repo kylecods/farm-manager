@@ -22,6 +22,30 @@ namespace Repositories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Entities.Accounts", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Activity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("StartAmount")
+                        .HasPrecision(38, 10)
+                        .HasColumnType("decimal(38,10)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Accounts", (string)null);
+                });
+
             modelBuilder.Entity("Entities.Factory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -76,6 +100,38 @@ namespace Repositories.Migrations
                     b.HasIndex("FactoryId");
 
                     b.ToTable("FactoryCollection", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Register", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AccountsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Activity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(38, 10)
+                        .HasColumnType("decimal(38,10)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountsId");
+
+                    b.ToTable("Register", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Worker", b =>
@@ -140,6 +196,15 @@ namespace Repositories.Migrations
                         .HasForeignKey("FactoryId");
 
                     b.Navigation("Factory");
+                });
+
+            modelBuilder.Entity("Entities.Register", b =>
+                {
+                    b.HasOne("Entities.Accounts", "Accounts")
+                        .WithMany()
+                        .HasForeignKey("AccountsId");
+
+                    b.Navigation("Accounts");
                 });
 
             modelBuilder.Entity("Entities.WorkerTracker", b =>

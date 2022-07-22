@@ -2,14 +2,14 @@
 {
     public interface IRepository<TItem, TId>
     {
-        Task AddAsync(TItem item);
+        ValueTask AddAsync(TItem item);
 
-        Task UpdateAsync(TItem item);
+        ValueTask UpdateAsync(TItem item);
 
-        Task DeleteAsync(TId id);
+        ValueTask DeleteAsync(TId id);
 
-        Task<IEnumerable<TItem>> GetAllAsync();
+        ValueTask<IEnumerable<TItem>> GetAllAsync();
 
-        Task<TItem> GetByIdAsync(TId id);
+        ValueTask<TItem> GetByIdAsync(TId id);
     }
 }

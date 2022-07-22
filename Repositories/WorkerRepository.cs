@@ -20,7 +20,7 @@ namespace Repositories
             _mapper = mapper ?? throw new ArgumentNullException();
         }
 
-        public async Task AddAsync(WorkerModel item)
+        public async ValueTask AddAsync(WorkerModel item)
         {
             var worker = WorkerMapper.CreateWorker(item);
 
@@ -29,7 +29,7 @@ namespace Repositories
             await _farmDbContext.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async ValueTask DeleteAsync(Guid id)
         {
             var entity = await _farmDbContext.Workers.FindAsync(id);
 
@@ -38,16 +38,16 @@ namespace Repositories
             await _farmDbContext.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<WorkerModel>> GetAllAsync()
+        public virtual async ValueTask<IEnumerable<WorkerModel>> GetAllAsync()
         {
             var result = _farmDbContext.Workers;
 
             var mappedResult = _mapper.Map<IEnumerable<Worker>, IEnumerable<WorkerModel>>(result);
 
-            return await Task.FromResult(mappedResult);
+            return await ValueTask.FromResult(mappedResult);
         }
 
-        public virtual async Task<WorkerModel> GetByIdAsync(Guid id)
+        public virtual async ValueTask<WorkerModel> GetByIdAsync(Guid id)
         {
             var entity = await _farmDbContext.Workers.FindAsync(id);
 
@@ -56,7 +56,7 @@ namespace Repositories
             return mappedEntity ?? new WorkerModel();
         }
 
-        public virtual async Task UpdateAsync(WorkerModel item)
+        public virtual async ValueTask UpdateAsync(WorkerModel item)
         {
             var entity = await _farmDbContext.Workers.FindAsync(item.Id);
 

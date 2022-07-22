@@ -20,7 +20,7 @@ namespace Repositories
             _mapper = mapper ?? throw new ArgumentNullException();
         }
 
-        public async Task AddAsync(WorkerTrackerModel item)
+        public async ValueTask AddAsync(WorkerTrackerModel item)
         {
             var workerTracker = WorkerTrackerMapper.CreateWorkerTracker(item);
 
@@ -29,7 +29,7 @@ namespace Repositories
             await _farmDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async ValueTask DeleteAsync(Guid id)
         {
             var entity = await _farmDbContext.WorkerTrackers.FindAsync(id);
 
@@ -38,25 +38,25 @@ namespace Repositories
             await _farmDbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<WorkerTrackerModel>> GetAllAsync()
+        public async ValueTask<IEnumerable<WorkerTrackerModel>> GetAllAsync()
         {
             var result = _farmDbContext.WorkerTrackers;
 
             var mappedResult = _mapper.Map<IEnumerable<WorkerTracker>, IEnumerable<WorkerTrackerModel>>(result);
 
-            return await Task.FromResult(mappedResult);
+            return await ValueTask.FromResult(mappedResult);
         }
 
-        public async Task<IEnumerable<WorkerTrackerModel>> GetAllByWorkerIdAsync(Guid workerId)
+        public async ValueTask<IEnumerable<WorkerTrackerModel>> GetAllByWorkerIdAsync(Guid workerId)
         {
             var result = _farmDbContext.WorkerTrackers.Where(x => x.WorkerId == workerId).AsEnumerable();
 
             var mappedResult = _mapper.Map<IEnumerable<WorkerTracker>, IEnumerable<WorkerTrackerModel>>(result);
 
-            return await Task.FromResult(mappedResult);
+            return await ValueTask.FromResult(mappedResult);
         }
 
-        public async Task<WorkerTrackerModel> GetByIdAsync(Guid id)
+        public async ValueTask<WorkerTrackerModel> GetByIdAsync(Guid id)
         {
             var entity = await _farmDbContext.WorkerTrackers.FindAsync(id);
 
@@ -65,7 +65,7 @@ namespace Repositories
             return mappedEntity;
         }
 
-        public async Task UpdateAsync(WorkerTrackerModel item)
+        public async ValueTask UpdateAsync(WorkerTrackerModel item)
         {
             var entity = await _farmDbContext.WorkerTrackers.FindAsync(item.Id);
 

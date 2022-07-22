@@ -14,63 +14,63 @@ namespace Services
 
             _workerTrackerRepository = workerTrackerRepository;
         }
-        public Task AddWorkerAsync(WorkerModel item)
+        public ValueTask AddWorkerAsync(WorkerModel item)
         {
             return _workerRepository.AddAsync(item);
         }
 
-        public Task AddWorkerTrackerAsync(WorkerTrackerModel item)
+        public ValueTask AddWorkerTrackerAsync(WorkerTrackerModel item)
         {
             return _workerTrackerRepository.AddAsync(item);
         }
 
-        public Task DeleteWorkerAsync(Guid id)
+        public ValueTask DeleteWorkerAsync(Guid id)
         {
             return _workerRepository.DeleteAsync(id);
         }
 
-        public Task DeleteWorkerTrackerAsync(Guid id)
+        public ValueTask DeleteWorkerTrackerAsync(Guid id)
         {
             return _workerTrackerRepository.DeleteAsync(id);
         }
 
-        public async Task<List<WorkerModel>> GetAllWorkersAsync()
+        public async ValueTask<List<WorkerModel>> GetAllWorkersAsync()
         {
             var workers = await _workerRepository.GetAllAsync();
 
             return workers.ToList();
         }
 
-        public async Task<List<WorkerTrackerModel>> GetAllWorkerTrackersAsync()
+        public async ValueTask<List<WorkerTrackerModel>> GetAllWorkerTrackersAsync()
         {
             var workerTrackers = await _workerTrackerRepository.GetAllAsync();
 
             return workerTrackers.ToList();
         }
 
-        public async Task<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId)
+        public async ValueTask<List<WorkerTrackerModel>> GetAllWorkerTrackersByWorkerIdAsync(Guid workerId)
         {
             var workerTrackers = await _workerTrackerRepository.GetAllByWorkerIdAsync(workerId);
 
             return workerTrackers.ToList();
         }
 
-        public Task<WorkerModel> GetWorkerByIdAsync(Guid id)
+        public ValueTask<WorkerModel> GetWorkerByIdAsync(Guid id)
         {
             return _workerRepository.GetByIdAsync(id);
         }
 
-        public Task<WorkerTrackerModel> GetWorkerTrackerByIdAsync(Guid id)
+        public ValueTask<WorkerTrackerModel> GetWorkerTrackerByIdAsync(Guid id)
         {
             return _workerTrackerRepository.GetByIdAsync(id);
         }
 
-        public Task UpdateWorkerAsync(WorkerModel item)
+        public ValueTask UpdateWorkerAsync(WorkerModel item)
         {
             return _workerRepository.UpdateAsync(item);
         }
 
-        public Task UpdateWorkerTrackerAsync(WorkerTrackerModel item)
+        public ValueTask UpdateWorkerTrackerAsync(WorkerTrackerModel item)
         {
             return _workerTrackerRepository.UpdateAsync(item);
         }

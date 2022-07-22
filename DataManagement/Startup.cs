@@ -30,6 +30,7 @@ namespace DataManagement
                 config.AddProfile<WorkerMapper>();
                 config.AddProfile<FactoryCollectionMapper>();
                 config.AddProfile<WorkerTrackerMapper>();
+                config.AddProfile<AccountsMapper>();
             });
 
             services.AddControllersWithViews();
@@ -85,10 +86,13 @@ namespace DataManagement
             services.AddScoped<IFactoryCollectionsRepository, FactoryCollectionRepository>();
             services.AddScoped<IWorkerRepository, WorkerRepository>();
             services.AddScoped<IWorkerTrackerRepository, WorkerTrackerRepository>();
+            services.AddScoped<IAccountsRepository, AccountsRepository>();
+            services.AddScoped<IRegisterRepository, RegisterRepository>();
 
             //services
             services.AddScoped<IFactoryService, FactoryService>();
             services.AddScoped<IWorkerService, WorkerService>();
+            services.AddScoped<IAccountsService, AccountsService>();
 
         }
 

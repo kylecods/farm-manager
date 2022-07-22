@@ -120,7 +120,7 @@ namespace DataManagement.Controllers
             }
         }
         [NonAction]
-        private Task<List<FactoryModel>> GetFactories()
+        private ValueTask<List<FactoryModel>> GetFactories()
         {
             return _factoryService.GetAllFactoriesAsync();
         }

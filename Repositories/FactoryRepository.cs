@@ -19,7 +19,7 @@ namespace Repositories
             _mapper = mapper ?? throw new ArgumentNullException();
         }
 
-        public virtual async Task AddAsync(FactoryModel item)
+        public virtual async ValueTask AddAsync(FactoryModel item)
         {
             var factory = FactoryMapper.CreateFactory(item);
 
@@ -28,7 +28,7 @@ namespace Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async ValueTask DeleteAsync(Guid id)
         {
             var entity = await _dbContext.Factories.FindAsync(id);
 
@@ -37,16 +37,16 @@ namespace Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<FactoryModel>> GetAllAsync()
+        public virtual async ValueTask<IEnumerable<FactoryModel>> GetAllAsync()
         {
             var result = _dbContext.Factories;
 
             var mappedResult = _mapper.Map<IEnumerable<Factory>, IEnumerable<FactoryModel>>(result!);
 
-            return await Task.FromResult(mappedResult);
+            return await ValueTask.FromResult(mappedResult);
         }
 
-        public virtual async Task<FactoryModel> GetByIdAsync(Guid id)
+        public virtual async ValueTask<FactoryModel> GetByIdAsync(Guid id)
         {
             var entity = await _dbContext.Factories.FindAsync(id);
 
@@ -55,7 +55,7 @@ namespace Repositories
             return mappedEntity ?? new FactoryModel();
         }
 
-        public virtual async Task UpdateAsync(FactoryModel item)
+        public virtual async ValueTask UpdateAsync(FactoryModel item)
         {
             var entity = await _dbContext.Factories.FindAsync(item.Id);
 

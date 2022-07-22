@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace Entities.Models
 {
@@ -12,6 +11,17 @@ namespace Entities.Models
         [Display(Name = "Top Dressing")]
         TopDressing,
         [Display(Name = "Pruning")]
-        Pruning
+        Pruning,
+        [Display(Name = "Other")]
+        Other
+    }
+
+    public enum AccountType
+    {
+        [Display(Name = "Expenses")]
+        Expenses = 1,
+
+        [Display(Name = "Income")]
+        Income
     }
 }
