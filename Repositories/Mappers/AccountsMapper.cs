@@ -17,7 +17,7 @@ namespace Repositories.Mappers
 
             accounts.SetNewId();
 
-            accounts.Activity = item.Activities;
+            accounts.Activity = item.Activity;
 
             accounts.AccountType = item.AccountType;
 

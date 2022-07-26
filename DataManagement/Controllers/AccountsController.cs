@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Services;
 using Entities.Models;
-using System;
-using System.Linq;
+
 
 namespace DataManagement.Controllers
 {
@@ -23,6 +22,13 @@ namespace DataManagement.Controllers
             return View();
         }
 
+        public async ValueTask<IActionResult> GetAllAccounts()
+        {
+            var accounts = await _accountsService.GetAllAccountsAsync();
+
+            return Json(accounts ?? Enumerable.Empty<AccountsModel>());
+        }
+
         // GET: AccountsController/Create
         public ActionResult Create()
         {
@@ -38,6 +44,8 @@ namespace DataManagement.Controllers
             {
                 await _accountsService.AddAccountsAsync(model);
 
+                TempData["Success"] = "Accounts created successfully";
+
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
@@ -48,12 +56,15 @@ namespace DataManagement.Controllers
             }
         }
 
-        public IActionResult AccountRegister(Guid id)
+        public async ValueTask<IActionResult> AccountRegister(Guid id)
         {
+            var account = await _accountsService.GetAccountByIdAsync(id);
+
+            ViewBag.AccountsName = account.AccountDesc;
+
             return View();
         }
 
-        [HttpPost]
         public async ValueTask<JsonResult> GetRegisters(Guid id)
         {
             var registers = await _accountsService.GetRegistersByAccountId(id);

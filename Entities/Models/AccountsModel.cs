@@ -13,9 +13,9 @@ namespace Entities.Models
         public string AccountDesc => Enum.GetName(typeof(AccountType), AccountType);
 
         [Display(Name = "Activity Done")]
-        public Activities Activities { get; set; }
+        public Activities Activity { get; set; }
 
-        public string ActivityDesc => Enum.GetName(typeof(Activities), Activities);
+        public string ActivityDesc => Enum.GetName(typeof(Activities), Activity);
 
         [Display(Name ="Starting Amount")]
         public decimal StartAmount { get; set; }
