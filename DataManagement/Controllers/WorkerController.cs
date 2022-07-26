@@ -5,6 +5,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Microsoft.Extensions.Logging;
 
 
 namespace DataManagement.Controllers
@@ -14,9 +15,13 @@ namespace DataManagement.Controllers
     {
         private readonly IWorkerService _workerService;
 
-        public WorkerController(IWorkerService workerService)
+        private readonly ILogger<WorkerController> _logger;
+
+        public WorkerController(IWorkerService workerService,ILogger<WorkerController> logger)
         {
             _workerService = workerService;
+
+            _logger = logger;
         }
         // GET: WorkerController
         public ActionResult Index()
@@ -54,6 +59,8 @@ namespace DataManagement.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
+
+                _logger.LogError(ex, "Worker Create => Something went horribly wrong");
 
                 return View(model);
             }

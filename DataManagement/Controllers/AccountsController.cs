@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Services;
 using Entities.Models;
-
+using Microsoft.Extensions.Logging;
 
 namespace DataManagement.Controllers
 {
@@ -12,9 +12,13 @@ namespace DataManagement.Controllers
     {
         private readonly IAccountsService _accountsService;
 
-        public AccountsController(IAccountsService accountsService)
+        private readonly ILogger<AccountsController> _logger;
+
+        public AccountsController(IAccountsService accountsService, ILogger<AccountsController> logger)
         {
             _accountsService = accountsService;
+
+            _logger = logger;
         }
         // GET: AccountsController
         public ActionResult Index()
@@ -51,6 +55,8 @@ namespace DataManagement.Controllers
             catch(Exception ex)
             {
                 TempData["Errors"] = $"Failed. {ex.Message}";
+
+                _logger.LogError(ex, "Accounts Create => Something went horribly wrong");
 
                 return View();
             }

@@ -6,18 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace DataManagement.HostedServices
 {
     public class DatabaseHostedService : IHostedService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        
-        //TODO:Logs
 
-        public DatabaseHostedService(IServiceScopeFactory serviceScopeFactory)
+        private readonly ILogger<DatabaseHostedService> _logger;
+        public DatabaseHostedService(IServiceScopeFactory serviceScopeFactory,ILogger<DatabaseHostedService> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
+
+            _logger = logger;
         }
 
         public virtual async Task StartAsync(CancellationToken cancellationToken)
@@ -35,9 +37,9 @@ namespace DataManagement.HostedServices
 
                 await identityDbContext.Database.MigrateAsync(cancellationToken);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO logger
+                _logger.LogError("Database failed to migrate", ex);
                 throw;
             }
 

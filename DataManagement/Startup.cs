@@ -8,21 +8,34 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Repositories;
 using Repositories.Mappers;
+using Serilog;
 using Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DataManagement
 {
     public class Startup
     {
         public IConfiguration Configuration;
-        public Startup(IConfiguration configuration)
+        public IWebHostEnvironment Environment;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var settings = new AppSettings();
+
+            ConfigurationBinder.Bind(Configuration.GetSection("AppSettings"), settings);
+
+            services.AddSingleton(s => settings);
 
             services.AddAutoMapper(config =>
             {
@@ -39,14 +52,36 @@ namespace DataManagement
 
             services.AddDbContext<FarmDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(settings.ConnectionString);
             });
 
             services.AddHostedService<HostedServices.DatabaseHostedService>();
 
-            services.AddDbContext<DataManagementContext>(options =>
-                    options.UseSqlServer(connectionString)
-             );
+            services.AddDbContext<DataManagementContext>(options => {
+
+                //Dan Mallot talk NDC Conference, https://www.youtube.com/watch?v=ZKVXl2640ps
+                options.UseSqlServer(settings.ConnectionString, sqlServerOptionsAction =>
+                {
+                    sqlServerOptionsAction.EnableRetryOnFailure(maxRetryCount: 4, maxRetryDelay: System.TimeSpan.FromSeconds(1), errorNumbersToAdd: new int[] { });
+                });
+
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+                if (Environment.IsDevelopment())
+                {
+                    options.EnableDetailedErrors();
+                    options.EnableSensitiveDataLogging();
+                    options.ConfigureWarnings(warningsAction =>
+                    {
+                        warningsAction.Log(new EventId[]
+                        {
+                            CoreEventId.FirstWithoutOrderByAndFilterWarning,
+                            CoreEventId.RowLimitingOperationWithoutOrderByWarning
+                        });
+                    });
+                }
+              
+              }); 
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<DataManagementContext>();
@@ -73,7 +108,7 @@ namespace DataManagement
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(15);
 
                 options.LoginPath = "/Identity/Account/Login";
                 options.LogoutPath = "/";
