@@ -16,11 +16,9 @@ namespace Repositories.Mappers
 
             register.SetNewId();
 
-            register.AccountId = item.AccountId;
+            register.AccountsId = item.AccountsId;
 
-            register.Activity = item.Activity;
-
-            register.Amount = register.Amount;
+            register.Amount = item.Amount;
 
             register.Date = item.Date;
 

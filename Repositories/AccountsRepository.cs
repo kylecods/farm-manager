@@ -41,6 +41,15 @@ namespace Repositories
             return await ValueTask.FromResult(mappedResult);
         }
 
+        public async ValueTask<AccountsModel> GetByActivityAsync(Activities activity)
+        {
+            var entity = _farmDbContext.Accounts.Where(x => x.Activity == activity).SingleOrDefault();
+
+            var mappedEntity = _mapper.Map<AccountsModel>(entity);
+
+            return await ValueTask.FromResult(mappedEntity ?? new AccountsModel());
+        }
+
         public async ValueTask<AccountsModel> GetByIdAsync(Guid id)
         {
             var entity = await _farmDbContext.Accounts.FindAsync(id);

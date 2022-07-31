@@ -108,14 +108,8 @@ namespace Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("AccountsId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Activity")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(38, 10)

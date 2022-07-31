@@ -20,5 +20,7 @@ namespace Services
 
         ValueTask<List<RegisterModel>> GetRegistersByAccountId(Guid accountId);
 
+        ValueTask<AccountsModel> GetAccountByActivityAsync(Activities activity);
+
     }
 }

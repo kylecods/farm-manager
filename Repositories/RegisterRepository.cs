@@ -9,13 +9,17 @@ namespace Repositories
     {
         private readonly FarmDbContext _farmDbContext;
 
+        private readonly IAccountsRepository _accountsRepository;
+
         private readonly IMapper _mapper;
 
-        public RegisterRepository(FarmDbContext farmDbContext, IMapper mapper)
+        public RegisterRepository(FarmDbContext farmDbContext, IMapper mapper,IAccountsRepository accountsRepository)
         {
             _farmDbContext = farmDbContext ?? throw new ArgumentNullException();
 
             _mapper = mapper ?? throw new ArgumentNullException();
+
+            _accountsRepository = accountsRepository ?? throw new ArgumentNullException();
         }
 
         public async virtual ValueTask AddAsync(RegisterModel item)
@@ -43,11 +47,21 @@ namespace Repositories
 
         public async virtual ValueTask<IEnumerable<RegisterModel>> GetAllByAccountIdAsync(Guid accountId)
         {
-            var result = _farmDbContext.Registers.Where(x => x.AccountId == accountId).AsEnumerable();
+            var account = await _accountsRepository.GetByIdAsync(accountId);
 
-            var mappedResult = _mapper.Map<IEnumerable<Register>, IEnumerable<RegisterModel>>(result);
+            var result = _farmDbContext.Registers.Where(x => x.AccountsId == accountId).Select(reg => new RegisterModel()
+            {
+                Id = reg.Id,
+                AccountsId = account.Id,
+                AccountType = account.AccountType,
+                Activity = account.Activity,
+                Amount = account.StartAmount + reg.Amount,
+                Date = reg.Date,
+                CreatedDate = reg.CreatedDate
+            }).AsEnumerable();
+ 
 
-            return await ValueTask.FromResult(mappedResult);
+            return await ValueTask.FromResult(result);
         }
 
         public async virtual ValueTask<RegisterModel> GetByIdAsync(Guid id)

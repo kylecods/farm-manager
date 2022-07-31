@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Accounts Register";
 }
-<h4 class="mt-5">@ViewBag.AccountsName</h4>
+<h4 class="mt-5">@ViewBag.Activity (@ViewBag.AccountName)</h4>
 <div id="showAlert"></div>
 @await Html.PartialAsync("_Alerts")
 <div class="row">

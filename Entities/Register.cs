@@ -5,11 +5,9 @@ namespace Entities
     public class Register : Entity
     {
 
-        public Guid AccountId { get; set; }
+        public Guid? AccountsId { get; set; }
 
         public virtual Accounts? Accounts { get; set; }
-
-        public Activities Activity { get; set; }
 
         public decimal Amount { get; set; }
 

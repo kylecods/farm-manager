@@ -5,7 +5,7 @@ namespace Entities.Models
     {
         public Guid Id { get; set; }
 
-        public Guid AccountId { get; set; }
+        public Guid AccountsId { get; set; }
 
         public AccountType AccountType { get; set; }
 

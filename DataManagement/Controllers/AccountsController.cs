@@ -68,6 +68,8 @@ namespace DataManagement.Controllers
 
             ViewBag.AccountsName = account.AccountDesc;
 
+            ViewBag.Activity = account.Activity;
+
             return View();
         }
 

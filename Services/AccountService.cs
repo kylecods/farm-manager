@@ -54,5 +54,10 @@ namespace Services
 
             return registers.ToList();
         }
+
+        public ValueTask<AccountsModel> GetAccountByActivityAsync(Activities activity)
+        {
+            return _accountsRepository.GetByActivityAsync(activity);
+        }
     }
 }

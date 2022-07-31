@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using Services;
 
 namespace DataManagement.Controllers
@@ -10,10 +12,16 @@ namespace DataManagement.Controllers
     public class WorkerTrackerController : Controller
     {
         private readonly IWorkerService _workerService;
+        private readonly IAccountsService _accountsService;
+        private readonly ILogger<WorkerTrackerController> _logger;
 
-        public WorkerTrackerController(IWorkerService workerService)
+        public WorkerTrackerController(IWorkerService workerService, IAccountsService accountsService,ILogger<WorkerTrackerController> logger)
         {
             _workerService = workerService;
+
+            _accountsService = accountsService; 
+
+            _logger = logger;
         }
         // GET: WorkerTrackerController
         public async ValueTask<ActionResult> Index(Guid id)
@@ -61,6 +69,32 @@ namespace DataManagement.Controllers
             try
             {
                 await _workerService.AddWorkerTrackerAsync(model);
+
+                var account = await _accountsService.GetAccountByActivityAsync(model.Activity);
+
+                var amount = 0m;
+
+                if(model.Activity == Activities.Plucking)
+                {
+                    amount = model.KiloGramsPicked * model.AmountPaid;
+                }
+                else
+                {
+                    amount = model.AmountPaid;
+                }
+
+                var addToRegister = new RegisterModel()
+                {
+                    AccountsId = account.Id,
+                    Activity = model.Activity,
+                    AccountType = account.AccountType,
+                    Amount = amount,
+                    Date = model.PickedDate
+                };
+
+                await _accountsService.AddRegisterAsync(addToRegister);
+
+                _logger.LogInformation("Created register model => {0}", JsonSerializer.Serialize(addToRegister));
 
                 TempData["Success"] = "Tracked worker information added.";
 
