@@ -1,7 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Accounts Register";
 }
-<h4 class="mt-5">@ViewBag.Activity (@ViewBag.AccountsName)</h4>
+<div class="d-flex flex-row justify-content-between mt-5 mb-3">
+    <div class="d-flex flex-column">
+        <h4>@ViewBag.Activity (@ViewBag.AccountsName)</h4>
+
+    </div>
+    <div class="d-flex flex-column">
+        <h4><span class="lead">Total Amount:</span> @ViewBag.TotalAmount</h4>
+    </div>
+</div>
+
 <div id="showAlert"></div>
 @await Html.PartialAsync("_Alerts")
 <div class="row">

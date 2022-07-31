@@ -55,7 +55,7 @@ namespace Repositories
                 AccountsId = account.Id,
                 AccountType = account.AccountType,
                 Activity = account.Activity,
-                Amount = account.StartAmount + reg.Amount,
+                Amount = reg.Amount,
                 Date = reg.Date,
                 CreatedDate = reg.CreatedDate
             }).AsEnumerable();

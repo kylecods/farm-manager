@@ -66,9 +66,13 @@ namespace DataManagement.Controllers
         {
             var account = await _accountsService.GetAccountByIdAsync(id);
 
+            var registers = await _accountsService.GetRegistersByAccountId(id);
+
             ViewBag.AccountsName = account.AccountDesc;
 
             ViewBag.Activity = account.Activity;
+
+            ViewBag.TotalAmount = registers.Sum(x => x.Amount + account.StartAmount).ToString("F");
 
             return View();
         }
