@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Services;
 using Entities.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataManagement.Controllers
 {
+    [Authorize]
     public class AccountsController : Controller
     {
         private readonly IAccountsService _accountsService;

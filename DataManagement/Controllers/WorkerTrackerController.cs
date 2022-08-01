@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataManagement.Controllers
 {
+    [Authorize]
     public class WorkerTrackerController : Controller
     {
         private readonly IWorkerService _workerService;

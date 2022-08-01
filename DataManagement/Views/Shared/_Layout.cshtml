@@ -35,7 +35,7 @@
                                 <a class="nav-link" asp-action="Index" asp-Controller="Worker">Workers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Logout</a>
+                                <a class="nav-link" asp-Controller="IdentityAccount" asp-action="LogOut" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Logout</a>
                             </li>
                         }
 

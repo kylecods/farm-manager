@@ -111,10 +111,11 @@ namespace DataManagement
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(15);
 
                 options.LoginPath = "/Identity/Account/Login";
-                options.LogoutPath = "/";
+                options.LogoutPath = "/Identity/Account/Logout";
                 options.SlidingExpiration = true;
 
             });
+
 
             //Repositories
             services.AddScoped<IFactoryRepository, FactoryRepository>();
