@@ -44,6 +44,15 @@ namespace Repositories
             return await ValueTask.FromResult(mappedResult);
         }
 
+        public virtual async ValueTask<IEnumerable<FactoryCollectionModel>> GetAllByFactoryIdAsync(Guid factoryId)
+        {
+            var result = _dbContext.FactoryCollections.Where(x => x.FactoryId == factoryId).AsEnumerable();
+
+            var mappedResult = _mapper.Map<IEnumerable<FactoryCollection>, IEnumerable<FactoryCollectionModel>>(result);
+
+            return await ValueTask.FromResult(mappedResult);
+        }
+
         public async ValueTask<FactoryCollectionModel> GetByIdAsync(Guid id)
         {
             var entity = await _dbContext.FactoryCollections.FindAsync(id);

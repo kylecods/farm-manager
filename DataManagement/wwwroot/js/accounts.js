@@ -28,7 +28,7 @@ fetch(url).then(response => response.json()).then(data => {
 
             $('td:eq(0)', nRow).html(dt_created);
 
-            $('td:eq(4)', nRow).html(actions);
+            $('td:eq(3)', nRow).html(actions);
         },
         "processing": true,
         "bDestroy": true,
@@ -38,7 +38,6 @@ fetch(url).then(response => response.json()).then(data => {
             { "mDataProp": "createdDate", "sTitle": "Created Date" },
             { "mDataProp": "activityDesc", "sTitle": "Activity Done" },
             { "mDataProp": "accountDesc", "sTitle": "Accounts Type" },
-            { "mDataProp": "startAmount", "sTitle": "Starting Amount" },
             { "mDataProp": "id", "sTitle": "Actions" },
 
         ],

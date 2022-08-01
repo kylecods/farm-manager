@@ -25,5 +25,7 @@ namespace Services
         ValueTask<List<FactoryCollectionModel>> GetAllFactoryCollectionsAsync();
 
         ValueTask<FactoryCollectionModel> GetFactoryCollectionByIdAsync(Guid id);
+
+        ValueTask<List<FactoryCollectionModel>> GetAllFactoryCollectionsByFactoryId(Guid factoryId);
     }
 }

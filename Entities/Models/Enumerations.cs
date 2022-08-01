@@ -12,6 +12,8 @@ namespace Entities.Models
         TopDressing,
         [Display(Name = "Pruning")]
         Pruning,
+        [Display(Name = "Factory Income")]
+        FactoryIncome,
         [Display(Name = "Other")]
         Other
     }

@@ -1,7 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Index";
+
+    var factoryName = ViewBag.FactoryName as string;
+
+    var totalAmount = ViewBag.TotalAmount as string;
 }
-<h4 class="mt-5">Factory Collection</h4>
+
+<div class="d-flex flex-row justify-content-between mb-3">
+    <div class="d-flex flex-column">
+        <h4>@factoryName's Payments</h4>
+    </div>
+    <div>
+        <h4>
+            <span class="lead">Total Amount: </span>
+            <span class="badge rounded-pill bg-success"> @totalAmount</span>
+        </h4>
+    </div>
+</div>
+
 <div id="showAlert"></div>
 @await Html.PartialAsync("_Alerts")
 <div class="row justify-content-center">

@@ -11,11 +11,7 @@
    <div class="col col-lg-6 col-sm-12 align-items-between">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <label asp-for="FactoryId" class="form-label"></label>
-            <div class="form-floating mb-2">
-                <select class="form-select py-0" asp-for="FactoryId" asp-items="Model.Factories"></select> 
-               
-            </div>
+            @Html.HiddenFor(x => x.FactoryId)
             <label asp-for="Weight" class="form-label"></label>
             <div class="form-floating mb-2">
                 <input asp-for="Weight" class="form-control py-0" aria-required="true" />

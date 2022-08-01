@@ -50,6 +50,13 @@ namespace Services
             return factoryCollections.ToList();
         }
 
+        public async ValueTask<List<FactoryCollectionModel>> GetAllFactoryCollectionsByFactoryId(Guid factoryId)
+        {
+            var factoryCollections = await _factoryCollectionsRepository.GetAllByFactoryIdAsync(factoryId);
+
+            return factoryCollections.ToList();
+        }
+
         public ValueTask<FactoryModel> GetFactoryByIdAsync(Guid id)
         {
             return _factoryRepository.GetByIdAsync(id);

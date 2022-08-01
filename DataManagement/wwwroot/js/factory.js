@@ -14,6 +14,8 @@ function loadFactoryData() {
 
                 let deleteUrl = `<a href="#" onclick="showModal('${aData.id}')" class="dropdown-item">Delete</a>`;
 
+                let viewMoreUrl = '<a href="/factorycollections/index/' + aData.id + '" class="dropdown-item">View Payments</a>';
+
                 let actions =
                     `<div class="dropdown">
                         <a class="btn btn-sm btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -21,6 +23,7 @@ function loadFactoryData() {
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li>${viewMoreUrl}</li>
                             <li>${editUrl}</li>
                             <li>${deleteUrl}</li>
                         </ul>

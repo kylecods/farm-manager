@@ -1,6 +1,11 @@
 ﻿
 function loadFactoryCData() {
-    fetch('/factorycollections/getfactorycollectiondata').then(response => response.json()).then(data => {
+
+    let windowUrl = window.location.href.split('/');
+
+    let url = '/factorycollections/getfactorycollectiondatabyfactoryid/' + windowUrl[5]
+
+    fetch(url).then(response => response.json()).then(data => {
 
         $('#factoryCollectionDatatable').DataTable({
             "data": data,
@@ -50,8 +55,10 @@ function loadFactoryCData() {
                 {
                     className: "btn btn-sm",
                     text: 'Create Factory Collection',
-                    action: function (dt) {
-                        window.location.href = '/factorycollections/create'
+                    action: () => {
+                        let currentUrl = window.location.href.split('/');
+                        let factoryId = currentUrl[5];
+                        window.location.href = '/factorycollections/create/' + factoryId
                     }
                 }
             ]

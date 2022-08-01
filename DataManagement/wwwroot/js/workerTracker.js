@@ -21,7 +21,7 @@ function loadTrackerWorkersData() {
 
                 let kgPicked = aData.kiloGramsPicked === 0 ? '---' : aData.kiloGramsPicked;
 
-                let amount = aData.kiloGramsPicked !== 0 ? `${aData.amountPaid} per unit` : aData.amountPaid;
+                let totalAmount = aData.kiloGramsPicked !== 0 ? aData.amountPaid * aData.kiloGramsPicked : '---';
 
 
                 let editUrl = '<a href="/workertracker/edit/' + aData.id + '" class="dropdown-item">Edit</a>';
@@ -44,11 +44,11 @@ function loadTrackerWorkersData() {
 
                 $('td:eq(2)', nRow).html(kgPicked);
 
-                $('td:eq(3)', nRow).html(amount);
+                $('td:eq(4)', nRow).html(totalAmount);
 
-                $('td:eq(4)', nRow).html(pd_created);
+                $('td:eq(5)', nRow).html(pd_created);
 
-                $('td:eq(5)', nRow).html(actions);
+                $('td:eq(6)', nRow).html(actions);
             },
             "processing": true,  
             "bDestroy": true,
@@ -58,7 +58,8 @@ function loadTrackerWorkersData() {
                 { "mDataProp": "createdDate", "sTitle": "Created Date" },
                 { "mDataProp": "activityDesc", "sTitle": "Activity Done" },
                 { "mDataProp": "kiloGramsPicked", "sTitle": "KGs Picked" },
-                { "mDataProp": "amountPaid", "sTitle": "Amount Paid" },
+                { "mDataProp": "amountPaid", "sTitle": "Amount Paid (per unit)" },
+                { "mDataProp": "amountPaid", "sTitle": "Total Amount Paid" },
                 { "mDataProp": "pickedDate", "sTitle": "Date Work Done" },
                 { "mDataProp": "id", "sTitle": "Actions" },
 

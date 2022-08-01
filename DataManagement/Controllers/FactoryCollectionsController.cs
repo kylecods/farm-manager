@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 using Services;
 
 namespace DataManagement.Controllers
@@ -11,15 +11,25 @@ namespace DataManagement.Controllers
     public class FactoryCollectionsController : Controller
     {
         private readonly IFactoryService _factoryService;
+        private readonly IAccountsService _accountsService;
 
-        public FactoryCollectionsController(IFactoryService factoryService)
+        public FactoryCollectionsController(IFactoryService factoryService, IAccountsService accountsService)
         {
             _factoryService = factoryService;
+            _accountsService = accountsService;
         }
 
         // GET: FactoryCollectionsController
-        public ActionResult Index()
+        public async ValueTask<ActionResult> Index(Guid id)
         {
+            var factory = await _factoryService.GetFactoryByIdAsync(id);
+
+            var data = await _factoryService.GetAllFactoryCollectionsByFactoryId(id);
+
+            ViewBag.FactoryName = factory.FactoryName;
+
+            ViewBag.TotalAmount = data.Sum(x => x.AmountPaid).ToString("F");
+
             return View();
         }
 
@@ -30,26 +40,23 @@ namespace DataManagement.Controllers
             return Json(data ?? new List<FactoryCollectionModel>());
         }
 
-        // GET: FactoryCollectionsController/Create
-        public async ValueTask<ActionResult> Create()
+        public async ValueTask<JsonResult> GetFactoryCollectionDataByFactoryId(Guid id)
         {
+            var data = await _factoryService.GetAllFactoryCollectionsByFactoryId(id);
+
+            return Json(data ?? new List<FactoryCollectionModel>());
+        }
+
+        // GET: FactoryCollectionsController/Create
+        public async ValueTask<ActionResult> Create(Guid id)
+        {
+            var factory = await _factoryService.GetFactoryByIdAsync(id);
+
             var factoryCollection = new FactoryCollectionModel();
 
-            var factories = await GetFactories();
-
-            factoryCollection.Factories = new List<SelectListItem>();
+            factoryCollection.FactoryId = factory.Id;
 
             factoryCollection.PaidDate = DateTime.Now;
-
-            foreach (var factory in factories)
-            {
-                var item = new SelectListItem()
-                {
-                    Value = factory.Id.ToString(),
-                    Text = factory.FactoryName
-                };
-                factoryCollection.Factories.Add(item);
-            }
 
             return View(factoryCollection);
         }
@@ -61,17 +68,31 @@ namespace DataManagement.Controllers
         {
             try
             {
+
+                var account = await _accountsService.GetAccountByActivityAsync(Activities.FactoryIncome);
+
                 await _factoryService.AddFactoryCollectionAsync(model);
+
+                var addToRegister = new RegisterModel()
+                {
+                    AccountsId = account!.Id,
+                    Activity = account!.Activity,
+                    AccountType = account!.AccountType,
+                    Amount = model.AmountPaid,
+                    Date =  model.PaidDate
+                };
+
+                await _accountsService.AddRegisterAsync(addToRegister);
 
                 TempData["Success"] = "Collection information added";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/factorycollections/index/{model.FactoryId}");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/factorycollections/index/{model.FactoryId}");
             }
         }
 
@@ -94,13 +115,13 @@ namespace DataManagement.Controllers
 
                 TempData["Success"] = "Collection information updated.";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/factorycollections/index/{model.FactoryId}");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = $"Failed. {ex.Message}";
 
-                return RedirectToAction(nameof(Index));
+                return Redirect($"/factorycollections/index/{model.FactoryId}");
             }
         }
 
@@ -119,10 +140,6 @@ namespace DataManagement.Controllers
                 return Json(new { message = $"Failed. {ex.Message}" });
             }
         }
-        [NonAction]
-        private ValueTask<List<FactoryModel>> GetFactories()
-        {
-            return _factoryService.GetAllFactoriesAsync();
-        }
+
     }
 }
