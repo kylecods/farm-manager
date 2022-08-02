@@ -17,7 +17,7 @@ namespace DataManagement.Controllers
         }
 
 
-        public async Task<IActionResult> LogOut(string returnUrl = null)
+        public async Task<IActionResult> LogOut(string? returnUrl = null)
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");

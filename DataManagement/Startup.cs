@@ -34,7 +34,6 @@ namespace DataManagement
             var settings = new AppSettings();
 
             ConfigurationBinder.Bind(Configuration.GetSection("AppSettings"), settings);
-
             services.AddSingleton(s => settings);
 
             services.AddAutoMapper(config =>
@@ -52,22 +51,22 @@ namespace DataManagement
 
             services.AddDbContext<FarmDbContext>(options =>
             {
-                options.UseSqlServer(settings.ConnectionString);
+                options.UseSqlServer(settings.ConnectionString!);
             });
 
             services.AddHostedService<HostedServices.DatabaseHostedService>();
 
             services.AddDbContext<DataManagementContext>(options => {
-
+                var devEnv = Environment.IsDevelopment();
                 //Dan Mallot talk NDC Conference, https://www.youtube.com/watch?v=ZKVXl2640ps
-                options.UseSqlServer(settings.ConnectionString, sqlServerOptionsAction =>
+                options.UseSqlServer(devEnv ? settings.ConnectionString! : settings.IdentityConnectionString!, sqlServerOptionsAction =>
                 {
                     sqlServerOptionsAction.EnableRetryOnFailure(maxRetryCount: 4, maxRetryDelay: System.TimeSpan.FromSeconds(1), errorNumbersToAdd: new int[] { });
                 });
 
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
-                if (Environment.IsDevelopment())
+                if (devEnv)
                 {
                     options.EnableDetailedErrors();
                     options.EnableSensitiveDataLogging();
